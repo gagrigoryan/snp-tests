@@ -1,0 +1,42 @@
+@function get-vw($target) {
+    $vwContext: (320 * 0.01) * 1px;
+    @return ($target / $vwContext) * 1vw;
+}
+
+@function get-rem($target) {
+    $targetPx: (12) * 1px;
+    @return ($target / $targetPx) * 1rem;
+}
+
+$blue: #0460a4;
+$blueHover: #0f3492;
+$black: #000000;
+$textBlack: #171717;
+$red: #b00808;
+$redError: #c8102e;
+
+$desktopContainerWidth: 87vw;
+$tabletContainerWidth: 87.5vw;
+$phoneContainerWidth: get-vw(280px);
+
+$tabletLargeMaxWidth: 1439px;
+$tabletMaxWidth: 1023px;
+$phoneMaxWidth: 767px;
+
+@mixin tabletLargeMedia {
+    @media screen and (max-width: $tabletLargeMaxWidth) {
+        @content;
+    }
+}
+
+@mixin tabletMedia {
+    @media screen and (max-width: $tabletMaxWidth) {
+        @content;
+    }
+}
+
+@mixin phoneMedia {
+    @media screen and (max-width: $phoneMaxWidth) {
+        @content;
+    }
+}

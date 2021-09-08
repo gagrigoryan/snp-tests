@@ -1,0 +1,135 @@
+@import "vars.module";
+@import "font";
+
+.headingH1 {
+    font-family: "GothamPro", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 2.4rem;
+    line-height: 2.9rem;
+    color: $textBlack;
+
+    @include tabletMedia {
+        font-size: 36px;
+        line-height: 48px;
+    }
+}
+
+.headingH2 {
+    font-family: "GothamPro", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 2rem;
+    line-height: 2.3rem;
+    color: $textBlack;
+    letter-spacing: -0.01em;
+
+    @include tabletMedia {
+        font-size: 30px;
+        line-height: 35px;
+    }
+}
+
+.headingH3 {
+    font-family: "GothamPro", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 1.53rem;
+    line-height: 1.9rem;
+    color: $textBlack;
+    letter-spacing: -0.01em;
+
+    @include tabletMedia {
+        font-size: 23px;
+        line-height: 28px;
+    }
+}
+
+.pNormal {
+    font-family: "GothamPro", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.4rem;
+    color: $textBlack;
+    letter-spacing: -0.01em;
+
+    @include tabletMedia {
+        font-size: 15px;
+        line-height: 18px;
+    }
+}
+
+.pSmall {
+    font-family: "GothamPro", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 0.9rem;
+    line-height: 1.1rem;
+    color: $textBlack;
+    letter-spacing: -0.01em;
+
+    @include tabletMedia {
+        font-size: 13px;
+        line-height: 16px;
+    }
+}
+
+.pNumber {
+    font-family: "GothamPro", sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 2rem;
+    line-height: 2.5rem;
+    color: $textBlack;
+    letter-spacing: -0.01em;
+
+    @include tabletMedia {
+        font-size: 30px;
+        line-height: 38px;
+    }
+}
+
+.mobileHeadingH1 {
+    @include phoneMedia {
+        font-family: "GothamPro", sans-serif;
+        font-style: normal;
+        font-weight: 500;
+        font-size: get-vw(31px);
+        line-height: get-vw(38px);
+        color: $textBlack;
+    }
+}
+
+.mobileHeadingH2 {
+    @include phoneMedia {
+        font-family: "GothamPro", sans-serif;
+        font-style: normal;
+        font-weight: 500;
+        font-size: get-vw(24px);
+        line-height: get-vw(30px);
+        color: $textBlack;
+    }
+}
+
+.mobileHeadingH3 {
+    @include phoneMedia {
+        font-family: "GothamPro", sans-serif;
+        font-style: normal;
+        font-weight: 500;
+        font-size: get-vw(20px);
+        line-height: get-vw(26px);
+        color: $textBlack;
+    }
+}
+
+.mobilePNormal {
+    @include phoneMedia {
+        font-family: "GothamPro", sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: get-vw(15px);
+        line-height: get-vw(18px);
+        color: $textBlack;
+    }
+}

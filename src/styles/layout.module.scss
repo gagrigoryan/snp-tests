@@ -1,0 +1,14 @@
+@import "vars.module";
+
+.container {
+    width: $desktopContainerWidth;
+    margin: 0 auto;
+
+    @include tabletLargeMedia {
+        width: $tabletContainerWidth;
+    }
+
+    @include phoneMedia {
+        width: $phoneContainerWidth;
+    }
+}
