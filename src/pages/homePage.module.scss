@@ -1,0 +1,5 @@
+@import "../styles/vars.module";
+
+.container {
+    composes: container from "../styles/layout.module.scss";
+}
