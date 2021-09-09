@@ -1,0 +1,44 @@
+@import "../../styles/vars.module";
+
+.container {
+    background-color: $white;
+    padding: get-rem(60px) get-rem(120px);
+    box-shadow: 0 4px 6px 2px rgba(0, 0, 0, 0.2);
+    position: relative;
+
+    @include phoneMedia {
+        width: 100%;
+        padding: get-vw(40px) get-vw(20px);
+    }
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.close {
+    outline: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    right: get-rem(20px);
+    top: get-rem(20px);
+
+    @include phoneMedia {
+        right: get-vw(20px);
+        top: get-vw(20px);
+        svg {
+            width: get-vw(16px);
+            height: get-vw(16px);
+        }
+    }
+}
+
+.title {
+    composes: headingH3 from "../../styles/typography.module.scss";
+    composes: mobileHeadingH3 from "../../styles/typography.module.scss";
+    text-align: center;
+}
