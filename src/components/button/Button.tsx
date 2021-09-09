@@ -6,13 +6,15 @@ type ButtonProps = {
     disabled?: boolean;
     outlined?: boolean;
     onClick?: React.MouseEventHandler;
+    type?: "submit" | "button";
     className?: string;
 };
 
-const Button: React.FC<ButtonProps> = ({ className, disabled, outlined, onClick, children }) => {
+const Button: React.FC<ButtonProps> = ({ className, disabled, type, outlined, onClick, children }) => {
     return (
         <button
             disabled={disabled}
+            type={type}
             onClick={onClick}
             className={clsx(
                 disabled && styles.disabledButton,

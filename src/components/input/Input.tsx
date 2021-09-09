@@ -11,11 +11,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({ error, className
     return (
         <label className={clsx(styles.container, className)}>
             <input ref={ref} className={clsx(styles.input, error && styles.inputError)} {...props} />
-            {error && (
-                <span role="alert" className={styles.error}>
-                    {error}
-                </span>
-            )}
+            {error && <span className={styles.error}>{error}</span>}
         </label>
     );
 });
