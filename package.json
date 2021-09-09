@@ -25,6 +25,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "prettier": "prettier --write src/**/**/*.{js,ts,tsx,scss} && git add . && git status",
+    "prettier:check": "prettier --check .",
+    "tsc": "tsc --noEmit",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
   },
@@ -55,6 +58,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "resolutions": {
+    "babel-loader": "8.1.0"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^6.3.8",
