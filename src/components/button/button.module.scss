@@ -8,6 +8,10 @@
     border: none;
     composes: pSmall from "../../styles/typography.module.scss";
     cursor: pointer;
+
+    @include phoneMedia {
+        padding: get-vw(15px) get-vw(23px);
+    }
 }
 
 .baseButton {
