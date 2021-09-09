@@ -3,7 +3,7 @@ import { Story, Meta } from "@storybook/react/types-6-0";
 import PopupBase from "../components/popup/PopupBase";
 
 export default {
-    title: "Popup/Popup",
+    title: "Popup",
 } as Meta;
 
 const Template: Story<ComponentProps<typeof PopupBase>> = (args) => <PopupBase {...args} />;
