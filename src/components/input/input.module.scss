@@ -27,7 +27,7 @@
     }
 
     @include phoneMedia {
-        height: get-vw(30px);
+        height: get-vw(36px);
         padding: 0 get-vw(10px);
     }
 }
