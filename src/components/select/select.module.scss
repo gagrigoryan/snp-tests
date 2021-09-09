@@ -1,0 +1,87 @@
+@import "../../styles/vars.module";
+
+.container {
+    background-color: $white;
+    width: 100%;
+    border: 1px solid $grayBorder;
+    border-radius: 2px;
+    position: relative;
+}
+
+.focusedContainer {
+    border: none;
+    box-shadow: 0 get-rem(5px) get-rem(15px) rgba(56, 67, 84, 0.05),
+        0 get-rem(10px) get-rem(30px) rgba(56, 67, 84, 0.05),
+        0 get-rem(25px) get-rem(50px) get-rem(-10px) rgba(56, 67, 84, 0.1);
+}
+
+.field {
+    composes: pNormal from "../../styles/typography.module.scss";
+    composes: mobilePNormal from "../../styles/typography.module.scss";
+    padding-left: get-rem(16px);
+    padding-right: get-rem(20px);
+    height: get-rem(40px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    user-select: none;
+    border-bottom: 1px solid transparent;
+
+    @include phoneMedia {
+        padding-left: get-vw(16px);
+        padding-right: get-vw(20px);
+        height: get-vw(36px);
+
+        svg {
+            width: get-vw(15px);
+            height: get-vw(9px);
+        }
+    }
+}
+
+.focusedField {
+    border-bottom: 1px solid $grayLight;
+
+    svg {
+        transform: rotate(180deg);
+    }
+}
+
+.dropdown {
+    position: absolute;
+    padding: get-rem(8px) 0;
+    display: flex;
+    flex-direction: column;
+    background-color: $white;
+    width: 100%;
+    box-shadow: 0 get-rem(5px) get-rem(15px) rgba(56, 67, 84, 0.05),
+        0 get-rem(10px) get-rem(30px) rgba(56, 67, 84, 0.05),
+        0 get-rem(25px) get-rem(50px) get-rem(-10px) rgba(56, 67, 84, 0.1);
+
+    @include phoneMedia {
+        padding: get-vw(8px) 0;
+    }
+}
+
+.selectItem {
+    background: none;
+    border: none;
+    outline: none;
+    text-align: left;
+    composes: pNormal from "../../styles/typography.module.scss";
+    composes: mobilePNormal from "../../styles/typography.module.scss";
+    height: get-rem(30px);
+    cursor: pointer;
+    padding: 0 get-rem(16px);
+    user-select: none;
+
+    &:hover {
+        background-color: #f4f4f4;
+    }
+
+    @include phoneMedia {
+        height: get-vw(30px);
+        padding: 0 get-vw(16px);
+    }
+}
