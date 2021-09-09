@@ -1,0 +1,65 @@
+@import "../../styles/vars.module";
+
+.container {
+    display: flex;
+    align-items: flex-start;
+}
+
+.input {
+    display: none;
+}
+
+.radio {
+    width: get-rem(28px);
+    height: get-rem(28px);
+    background: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid $gray;
+    cursor: pointer;
+    flex-shrink: 0;
+
+    &:hover {
+        border-color: $blue;
+
+        svg path {
+            stroke: $blue;
+        }
+    }
+
+    .input:checked + & {
+        background-color: $blue;
+        border-color: $blue;
+
+        svg path {
+            stroke: $white;
+        }
+
+        &:hover {
+            background-color: $blueHover;
+            border-color: $blueHover;
+        }
+    }
+
+    @include phoneMedia {
+        width: get-vw(28px);
+        height: get-vw(28px);
+
+        svg {
+            width: get-vw(15px);
+            height: get-vw(11px);
+        }
+    }
+}
+
+.label {
+    margin-left: get-rem(12px);
+    composes: pNormal from "../../styles/typography.module.scss";
+    composes: mobilePNormal from "../../styles/typography.module.scss";
+
+    @include phoneMedia {
+        margin-left: get-vw(12px);
+    }
+}
