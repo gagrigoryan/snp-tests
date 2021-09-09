@@ -3,7 +3,7 @@ import { Story, Meta } from "@storybook/react/types-6-0";
 import Select, { TSelectItem } from "../components/select/Select";
 
 export default {
-    title: "Select/Select",
+    title: "Select",
 } as Meta;
 
 const Template: Story<ComponentProps<typeof Select>> = (args) => <Select {...args} />;

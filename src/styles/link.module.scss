@@ -1,0 +1,13 @@
+@import "./vars.module";
+
+.link {
+    composes: pNormal from "./typography.module.scss";
+    composes: mobilePNormal from "./typography.module.scss";
+    cursor: pointer;
+    border-bottom: 1px solid $textBlack;
+
+    &:hover {
+        border-bottom: 1px solid transparent;
+        color: $blueHover;
+    }
+}

@@ -3,7 +3,7 @@ import { Story, Meta } from "@storybook/react/types-6-0";
 import RadioButton from "../components/radio-button/RadioButton";
 
 export default {
-    title: "RadioButton/RadioButton",
+    title: "RadioButton",
 } as Meta;
 
 const Template: Story<ComponentProps<typeof RadioButton>> = (args) => <RadioButton {...args} />;
