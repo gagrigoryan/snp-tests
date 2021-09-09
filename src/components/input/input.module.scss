@@ -1,0 +1,49 @@
+@import "../../styles/vars.module";
+
+.container {
+    width: 100%;
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.input {
+    width: 100%;
+    height: get-rem(40px);
+    composes: pNormal from "../../styles/typography.module.scss";
+    composes: mobilePNormal from "../../styles/typography.module.scss";
+    background-color: transparent;
+    outline: none;
+    border: 1px solid $gray;
+    border-radius: 1px;
+    padding: 0 get-rem(16px);
+    box-sizing: border-box;
+    color: $textBlack;
+
+    &:hover,
+    &:focus {
+        border-color: $blue;
+    }
+
+    @include phoneMedia {
+        height: get-vw(30px);
+        padding: 0 get-vw(10px);
+    }
+}
+
+.inputError {
+    border: 1px solid $redError;
+    background-color: rgba($red, 0.03);
+
+    &:hover,
+    &:focus {
+        border-color: $redError;
+    }
+}
+
+.error {
+    composes: pSmall from "../../styles/typography.module.scss";
+    color: $redError;
+    margin-top: 3px;
+}
