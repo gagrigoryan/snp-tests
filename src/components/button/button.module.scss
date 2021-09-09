@@ -1,0 +1,57 @@
+@import "../../styles/vars.module";
+
+.container {
+    padding: get-rem(15px) get-rem(23px);
+    outline: none;
+    border-radius: 4px;
+    text-transform: uppercase;
+    border: none;
+    composes: pSmall from "../../styles/typography.module.scss";
+    cursor: pointer;
+}
+
+.baseButton {
+    composes: container;
+    background-color: $blue;
+    color: $white;
+
+    &:hover {
+        box-shadow: 0 get-rem(2px) get-rem(4px) rgba(15, 52, 146, 0.25);
+    }
+
+    &:focus {
+        background-color: $blueHover;
+    }
+}
+
+.disabledButton {
+    composes: container;
+    background: none;
+    border: 1px solid $gray;
+    color: $grayLight;
+    cursor: default;
+
+    &:hover,
+    &:focus {
+        background: none;
+        box-shadow: none;
+    }
+}
+
+.outlinedButton {
+    composes: container;
+    background: none;
+    border: 1px solid $grayLight;
+    color: $blue;
+
+    &:hover {
+        box-shadow: none;
+        border-color: $blue;
+    }
+
+    &:focus {
+        background: none;
+        border-color: $blueHover;
+        color: $blueHover;
+    }
+}

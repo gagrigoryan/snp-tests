@@ -2,4 +2,5 @@
 
 .container {
     composes: container from "../styles/layout.module.scss";
+    composes: pNumber from "../styles/typography.module.scss";
 }
