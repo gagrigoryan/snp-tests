@@ -1,0 +1,53 @@
+@import "../../styles/vars.module";
+
+.container {
+    display: flex;
+    align-items: flex-start;
+}
+
+.input {
+    display: none;
+}
+
+.box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: get-rem(16px);
+    height: get-rem(16px);
+    border-radius: 4px;
+    border: 1px solid $grayBorder;
+    cursor: pointer;
+    background: none;
+    flex-shrink: 0;
+
+    &:hover {
+        border-color: $blue;
+    }
+
+    .input:checked + & {
+        background-color: $blue;
+        border-color: $blue;
+
+        &:hover {
+            background-color: $blueHover;
+            border-color: $blueHover;
+        }
+    }
+
+    @include phoneMedia {
+        width: get-vw(16px);
+        height: get-vw(16px);
+
+        svg {
+            width: get-vw(10px);
+            height: get-vw(8px);
+        }
+    }
+}
+
+.label {
+    margin-left: get-rem(12px);
+    composes: pNormal from "../../styles/typography.module.scss";
+    composes: mobilePNormal from "../../styles/typography.module.scss";
+}
