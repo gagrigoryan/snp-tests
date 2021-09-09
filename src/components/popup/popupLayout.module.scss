@@ -1,0 +1,32 @@
+@import "../../styles/vars.module";
+
+.container {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    background-color: rgba($black, 0.4);
+    animation-duration: 0.1s;
+    animation-name: fade;
+}
+
+.content {
+    @include phoneMedia {
+        width: 100%;
+    }
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
