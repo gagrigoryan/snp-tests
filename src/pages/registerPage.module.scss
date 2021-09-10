@@ -1,6 +1,6 @@
 @import "../styles/vars.module";
 
-.formWrapper {
+.wrapper {
     width: get-rem(400px);
 
     @include phoneMedia {
@@ -8,9 +8,15 @@
     }
 }
 
-.formTitle {
+.title {
     composes: headingH2 from "../styles/typography.module.scss";
     composes: mobileHeadingH2 from "../styles/typography.module.scss";
+    margin-bottom: get-rem(15px);
+}
+
+.description {
+    composes: pNormal from "../styles/typography.module.scss";
+    composes: mobilePNormal from "../styles/typography.module.scss";
     margin-bottom: get-rem(30px);
 }
 
