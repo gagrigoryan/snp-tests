@@ -1,0 +1,14 @@
+@import "../../styles/vars.module";
+
+.actionWrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: get-rem(30px);
+}
+
+.actionButton {
+    width: get-rem(160px);
+    &:not(:last-child) {
+        margin-right: get-rem(20px);
+    }
+}

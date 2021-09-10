@@ -3,7 +3,7 @@ import styles from "./popupBase.module.scss";
 import PopupLayout from "./PopupLayout";
 import CloseIcon from "../icons/CloseIcon";
 
-type PopupBaseProps = {
+export type PopupBaseProps = {
     title: string;
     onClose: React.MouseEventHandler;
 };
