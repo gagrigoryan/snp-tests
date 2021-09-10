@@ -1,0 +1,102 @@
+@import "../../styles/vars.module";
+
+.container {
+    width: 100%;
+    padding: get-rem(20px) get-rem(30px);
+    border: 1px solid transparent;
+    border-radius: 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.pink {
+    composes: container;
+    background-color: $pink;
+
+    &:hover {
+        border-color: $pinkBorder;
+    }
+
+    .type {
+        color: $pinkBorder;
+    }
+
+    .actionButton {
+        &:hover svg path {
+            stroke: $pinkBorder;
+        }
+    }
+}
+
+.purple {
+    composes: container;
+    background-color: $purple;
+
+    &:hover {
+        border-color: $purpleBorder;
+    }
+
+    .type {
+        color: $purpleBorder;
+    }
+
+    .actionButton {
+        &:hover svg path {
+            stroke: $purpleBorder;
+        }
+    }
+}
+
+.green {
+    composes: container;
+    background-color: $green;
+
+    &:hover {
+        border-color: $greenBorder;
+    }
+
+    .type {
+        color: $greenBorder;
+    }
+
+    .actionButton {
+        &:hover svg path {
+            stroke: $greenBorder;
+        }
+    }
+}
+
+.titleWrapper {
+    display: flex;
+    align-items: center;
+}
+
+.title {
+    composes: headingH3 from "../../styles/typography.module.scss";
+    composes: mobileHeadingH3 from "../../styles/typography.module.scss";
+}
+
+.type {
+    composes: pNormal from "../../styles/typography.module.scss";
+    composes: mobilePNormal from "../../styles/typography.module.scss";
+    margin-left: get-rem(50px);
+    font-weight: 500;
+}
+
+.actionButton {
+    outline: none;
+    border: none;
+    background: none;
+    cursor: pointer;
+
+    &:not(:last-child) {
+        margin-right: get-rem(25px);
+    }
+
+    svg {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+}

@@ -33,17 +33,26 @@
 .button {
     @include phoneMedia {
         width: 100%;
-        margin-top: get-vw(20px);
+        margin-top: get-vw(15px);
     }
 }
 
 .action {
     display: flex;
     align-items: center;
+
+    @include phoneMedia {
+        flex-direction: column-reverse;
+    }
 }
 
 .buttonWrapper {
     margin-right: get-rem(30px);
+
+    @include phoneMedia {
+        margin-right: 0;
+        margin-top: get-vw(15px);
+    }
 }
 
 .actionButton {
