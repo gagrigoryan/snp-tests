@@ -1,0 +1,23 @@
+@import "../styles/vars.module";
+
+.formWrapper {
+    width: get-rem(400px);
+
+    @include phoneMedia {
+        width: $phoneContainerWidth;
+    }
+}
+
+.formTitle {
+    composes: headingH2 from "../styles/typography.module.scss";
+    composes: mobileHeadingH2 from "../styles/typography.module.scss";
+    margin-bottom: get-rem(30px);
+}
+
+.link {
+    composes: link from "../styles/link.module.scss";
+    margin-top: get-rem(20px);
+    margin-left: 50%;
+    transform: translateX(-50%);
+    display: inline-flex;
+}

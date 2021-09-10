@@ -10,13 +10,13 @@
 
 .input {
     width: 100%;
-    height: get-rem(40px);
+    height: get-rem(48px);
     composes: pNormal from "../../styles/typography.module.scss";
     composes: mobilePNormal from "../../styles/typography.module.scss";
     background-color: transparent;
     outline: none;
     border: 1px solid $gray;
-    border-radius: 1px;
+    border-radius: 4px;
     padding: 0 get-rem(16px);
     box-sizing: border-box;
     color: $textBlack;
@@ -27,7 +27,7 @@
     }
 
     @include phoneMedia {
-        height: get-vw(36px);
+        height: get-vw(40px);
         padding: 0 get-vw(10px);
     }
 }
