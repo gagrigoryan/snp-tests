@@ -1,0 +1,64 @@
+@import "../../styles/vars.module";
+
+.container {
+    width: 100%;
+    border: 1px solid $grayBorder;
+    padding: get-rem(30px) get-rem(30px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+        border-color: $blue;
+    }
+
+    @include phoneMedia {
+        flex-direction: column;
+        align-items: unset;
+        padding: get-vw(20px);
+    }
+}
+
+.title {
+    composes: headingH3 from "../../styles/typography.module.scss";
+    composes: mobileHeadingH3 from "../../styles/typography.module.scss";
+    width: get-rem(500px);
+
+    @include phoneMedia {
+        width: 100%;
+    }
+}
+
+.button {
+    @include phoneMedia {
+        width: 100%;
+        margin-top: get-vw(20px);
+    }
+}
+
+.action {
+    display: flex;
+    align-items: center;
+}
+
+.buttonWrapper {
+    margin-right: get-rem(30px);
+}
+
+.actionButton {
+    outline: none;
+    border: none;
+    background: none;
+    cursor: pointer;
+
+    &:not(:last-child) {
+        margin-right: get-rem(20px);
+    }
+
+    &:hover {
+        svg path {
+            stroke: $blue;
+        }
+    }
+}

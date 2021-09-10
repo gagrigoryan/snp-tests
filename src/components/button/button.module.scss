@@ -6,7 +6,8 @@
     border-radius: 4px;
     text-transform: uppercase;
     border: none;
-    composes: pSmall from "../../styles/typography.module.scss";
+    composes: pNormal from "../../styles/typography.module.scss";
+    composes: mobilePNormal from "../../styles/typography.module.scss";
     cursor: pointer;
 
     @include phoneMedia {
