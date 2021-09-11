@@ -1,14 +1,15 @@
-import { SignInRequest, SignUpRequest } from "../types/auth";
+import { LoginRequest, RegisterRequest } from "../types/auth";
 import { apiRequest } from "./apiRequest";
+import { TUser } from "../types/user";
 
-export const postSignIn = async (body: SignInRequest) =>
+export const postLogin = async (body: LoginRequest): Promise<TUser> =>
     apiRequest({
         path: "signin",
         method: "POST",
         body,
     });
 
-export const postSignUp = async (body: SignUpRequest) =>
+export const postRegister = async (body: RegisterRequest): Promise<TUser> =>
     apiRequest({
         path: "signup",
         method: "POST",

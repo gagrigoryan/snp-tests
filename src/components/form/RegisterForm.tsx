@@ -5,15 +5,21 @@ import PasswordField from "../fields/PasswordField";
 import Button from "../button/Button";
 import TextField from "../fields/TextField";
 import CheckboxField from "../fields/CheckboxField";
-import { SignUpRequest } from "../../types/auth";
+import { RegisterRequest } from "../../types/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { userRegister } from "../../models/user/slice";
+import { registerFailedSelector } from "../../models/user/selectors";
 
 const RegisterForm: React.FC = () => {
     const { control, handleSubmit, watch } = useForm({
         mode: "onTouched",
     });
+    const dispatch = useDispatch();
+    const registerFailed = useSelector(registerFailedSelector);
 
-    const onSubmit = async (data: SignUpRequest) => {
+    const onSubmit = (data: RegisterRequest) => {
         console.log(data);
+        dispatch(userRegister(data));
     };
 
     return (
@@ -46,6 +52,7 @@ const RegisterForm: React.FC = () => {
             <Button className={styles.button} type="submit">
                 зарегистрироваться
             </Button>
+            {registerFailed && <p className={styles.error}>{registerFailed}</p>}
         </form>
     );
 };
