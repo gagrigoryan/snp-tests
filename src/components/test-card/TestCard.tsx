@@ -4,9 +4,9 @@ import clsx from "clsx";
 import Button from "../button/Button";
 import PencilIcon from "../icons/PencilIcon";
 import TrashIcon from "../icons/TrashIcon";
+import { TTest } from "../../types/test";
 
-type TestCardProps = {
-    title: string;
+type TestCardProps = TTest & {
     editable?: boolean;
     className?: string;
 };

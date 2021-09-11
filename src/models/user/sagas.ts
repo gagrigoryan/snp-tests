@@ -58,10 +58,10 @@ function* currentUserSaga() {
     }
 }
 
-const booksSagas = function* () {
+const userSagas = function* () {
     yield all([takeLatest(userLogin.type, userLoginSaga)]);
     yield all([takeLatest(userRegister.type, userRegisterSaga)]);
     yield all([takeLatest(getCurrentUser.type, currentUserSaga)]);
 };
 
-export default booksSagas;
+export default userSagas;
