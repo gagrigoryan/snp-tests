@@ -5,6 +5,7 @@ export const COMMON_FETCH_OPTIONS = {
     headers: {
         Accept: "application/json, *.*",
         "Content-Type": "application/json; charset=utf-8",
+        "Access-Control-Allow-Credentials": "true",
         "scope-key": SCOPE_KEY,
     },
 };
