@@ -15,3 +15,9 @@ export const postRegister = async (body: RegisterRequest): Promise<TUser> =>
         method: "POST",
         body,
     });
+
+export const fetchCurrentUser = async (): Promise<TUser> =>
+    apiRequest({
+        path: "users/current",
+        method: "GET",
+    });

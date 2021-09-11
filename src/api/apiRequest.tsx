@@ -5,7 +5,6 @@ export const COMMON_FETCH_OPTIONS = {
     headers: {
         Accept: "application/json, *.*",
         "Content-Type": "application/json; charset=utf-8",
-        "credentials": "include",
         "scope-key": SCOPE_KEY,
     },
 };
@@ -19,6 +18,7 @@ type Request = {
 const apiRequestBase = async ({ path, method, ...config }: Request) => {
     const response = await fetch(`${API_URL}/${path}`, {
         ...COMMON_FETCH_OPTIONS,
+        credentials: "include",
         method,
         body: config.body ? JSON.stringify(config.body) : undefined,
     });

@@ -1,7 +1,7 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { LoginRequest, RegisterRequest } from "../../types/auth";
 import { takeLatest, all, put, call } from "redux-saga/effects";
-import { postLogin, postRegister } from "../../api/auth";
+import { fetchCurrentUser, postLogin, postRegister } from "../../api/auth";
 import { TUser } from "../../types/user";
 import {
     userLogin,
@@ -10,6 +10,8 @@ import {
     userRegister,
     userRegisterFailed,
     userRegisterSuccess,
+    getCurrentUserSuccess,
+    getCurrentUser,
 } from "./slice";
 
 function* userLoginSaga({ payload }: PayloadAction<LoginRequest>) {
@@ -44,9 +46,22 @@ function* userRegisterSaga({ payload }: PayloadAction<RegisterRequest>) {
     }
 }
 
+function* currentUserSaga() {
+    try {
+        const user: TUser = yield call(fetchCurrentUser);
+        yield put({
+            type: getCurrentUserSuccess.type,
+            payload: user,
+        });
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 const booksSagas = function* () {
     yield all([takeLatest(userLogin.type, userLoginSaga)]);
     yield all([takeLatest(userRegister.type, userRegisterSaga)]);
+    yield all([takeLatest(getCurrentUser.type, currentUserSaga)]);
 };
 
 export default booksSagas;
