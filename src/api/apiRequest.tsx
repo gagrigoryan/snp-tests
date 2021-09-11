@@ -26,7 +26,7 @@ const apiRequestBase = async ({ path, method, ...config }: Request) => {
 
     if (response.status === 400) {
         data = await response.json();
-        throw new Error(data.error);
+        throw data;
     }
 
     if (!response.ok) {

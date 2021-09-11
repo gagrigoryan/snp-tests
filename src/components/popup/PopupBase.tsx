@@ -5,7 +5,7 @@ import CloseIcon from "../icons/CloseIcon";
 
 export type PopupBaseProps = {
     title: string;
-    onClose: React.MouseEventHandler;
+    onClose: () => void;
 };
 
 const PopupBase: React.FC<PopupBaseProps> = ({ title, onClose, children }) => {

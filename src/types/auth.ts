@@ -1,9 +1,9 @@
-export type SignInRequest = {
+export type LoginRequest = {
     username: string;
     password: string;
 };
 
-export type SignUpRequest = SignInRequest & {
+export type RegisterRequest = LoginRequest & {
     password_confirmation: string;
     is_admin: boolean;
 };

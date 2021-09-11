@@ -20,6 +20,10 @@ const PasswordField: React.FC<ControlledFieldProps & { placeholder?: string }> =
             placeholder={placeholder || PasswordFieldPlaceholder}
             rules={{
                 required: { value: true, message: "Введите пароль" },
+                pattern: {
+                    value: /^.{6,}$/,
+                    message: "Пароль слишком коротки (меньше 6 знаков)",
+                },
                 ...rules,
             }}
         />

@@ -7,3 +7,9 @@
 .button {
     width: 100%;
 }
+
+.error {
+    composes: pSmall from "../../styles/typography.module.scss";
+    margin-top: get-rem(15px);
+    color: $redError;
+}
