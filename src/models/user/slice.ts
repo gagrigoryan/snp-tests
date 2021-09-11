@@ -4,7 +4,7 @@ import { TUser } from "../../types/user";
 
 interface UserStore {
     user: TUser;
-    isAuth: boolean;
+    isAuthenticated: boolean;
     fetching: boolean;
     loginFailed?: string;
     registerFailed?: string;
@@ -12,7 +12,7 @@ interface UserStore {
 
 const initialState: UserStore = {
     user: {} as TUser,
-    isAuth: false,
+    isAuthenticated: false,
     fetching: false,
 };
 
@@ -27,7 +27,7 @@ const userSlice = createSlice({
         userLoginSuccess: (state, { payload }: PayloadAction<TUser>) => {
             state.fetching = false;
             state.user = payload;
-            state.isAuth = true;
+            state.isAuthenticated = true;
         },
         userLoginFailed: (state, { payload }: PayloadAction<string>) => {
             state.fetching = false;
@@ -41,15 +41,31 @@ const userSlice = createSlice({
         userRegisterSuccess: (state, { payload }: PayloadAction<TUser>) => {
             state.fetching = false;
             state.user = payload;
-            state.isAuth = true;
+            state.isAuthenticated = true;
         },
         userRegisterFailed: (state, { payload }: PayloadAction<string>) => {
             state.fetching = false;
             state.registerFailed = payload;
         },
+        getCurrentUser: (state) => {
+            state.fetching = true;
+        },
+        getCurrentUserSuccess: (state, { payload }: PayloadAction<TUser>) => {
+            state.fetching = false;
+            state.user = payload;
+            state.isAuthenticated = true;
+        },
     },
 });
 
-export const { userLogin, userLoginSuccess, userLoginFailed, userRegister, userRegisterSuccess, userRegisterFailed } =
-    userSlice.actions;
+export const {
+    userLogin,
+    userLoginSuccess,
+    userLoginFailed,
+    userRegister,
+    userRegisterSuccess,
+    userRegisterFailed,
+    getCurrentUser,
+    getCurrentUserSuccess,
+} = userSlice.actions;
 export default userSlice.reducer;
