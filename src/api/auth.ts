@@ -21,3 +21,9 @@ export const fetchCurrentUser = async (): Promise<TUser> =>
         path: "users/current",
         method: "GET",
     });
+
+export const logout = async () =>
+    apiRequest({
+        path: "logout",
+        method: "DELETE",
+    });

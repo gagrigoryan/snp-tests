@@ -1,4 +1,46 @@
 @import "../../styles/vars.module";
 
 .container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: get-rem(90px);
+    padding: 0 get-rem(40px);
+
+    @include phoneMedia {
+        padding: 0 get-vw(10px);
+        height: get-vw(60px);
+    }
+}
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    composes: pNumber from "../../styles/typography.module.scss";
+}
+
+.username {
+    composes: pNormal from "../../styles/typography.module.scss";
+    composes: mobilePNormal from "../../styles/typography.module.scss";
+    margin-right: get-rem(20px);
+
+    @include phoneMedia {
+        margin-right: get-vw(10px);
+    }
+}
+
+.logout {
+    composes: link from "../../styles/link.module.scss";
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    outline: none;
+    background: none;
 }
