@@ -1,0 +1,20 @@
+@import "../../styles/vars.module";
+
+.container {
+    position: relative;
+    padding-top: get-rem(153px);
+    width: 100%;
+    background-color: $blueLight;
+}
+
+.title {
+    composes: container from "../../styles/layout.module.scss";
+    composes: headingH1 from "../../styles/typography.module.scss";
+    composes: mobileHeadingH1 from "../../styles/typography.module.scss";
+}
+
+.content {
+    width: 100%;
+    background-color: $white;
+    margin-top: get-rem(75px);
+}

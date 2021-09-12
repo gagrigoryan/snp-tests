@@ -34,6 +34,16 @@ const userSlice = createSlice({
             state.loginFailed = payload;
         },
 
+        userLogout: (state) => {
+            state.fetching = true;
+        },
+
+        userLogoutSuccess: (state) => {
+            state.fetching = false;
+            state.isAuthenticated = false;
+            state.user = {} as TUser;
+        },
+
         userRegister: (state, action: PayloadAction<RegisterRequest>) => {
             state.fetching = true;
             state.registerFailed = undefined;
@@ -62,6 +72,8 @@ export const {
     userLogin,
     userLoginSuccess,
     userLoginFailed,
+    userLogout,
+    userLogoutSuccess,
     userRegister,
     userRegisterSuccess,
     userRegisterFailed,
