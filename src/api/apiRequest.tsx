@@ -11,7 +11,7 @@ export const COMMON_FETCH_OPTIONS = {
 
 type Request = {
     path: string;
-    method: "POST" | "GET" | "PUT" | "DELETE";
+    method: "POST" | "GET" | "PATCH" | "DELETE";
     body?: Record<string, unknown>;
 };
 

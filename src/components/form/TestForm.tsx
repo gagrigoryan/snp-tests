@@ -3,20 +3,17 @@ import styles from "./form.module.scss";
 import { useForm } from "react-hook-form";
 import TextField from "../fields/TextField";
 import Button from "../button/Button";
-import { TestRequest } from "../../types/test";
-import { useDispatch } from "react-redux";
-import { createTest } from "../../models/tests/slice";
+import { TTest } from "../../types/test";
 
-const TestForm: React.FC = () => {
+type TestFormProps = {
+    onSubmit: (data: any) => void;
+    defaultValues?: TTest;
+};
+
+const TestForm: React.FC<TestFormProps> = ({ defaultValues, onSubmit }) => {
     const { control, handleSubmit } = useForm({
         mode: "onTouched",
     });
-    const dispatch = useDispatch();
-
-    const onSubmit = (data: TestRequest) => {
-        console.log(data);
-        dispatch(createTest(data));
-    };
 
     return (
         <div className={styles.container}>
@@ -25,6 +22,7 @@ const TestForm: React.FC = () => {
                     control={control}
                     name="title"
                     className={styles.field}
+                    defaultValue={defaultValues?.title}
                     placeholder="Название теста"
                     rules={{
                         required: { value: true, message: "Введите название теста" },

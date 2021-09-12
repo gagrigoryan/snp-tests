@@ -9,6 +9,7 @@ import { getCurrentUser } from "./models/user/slice";
 import CreateTestPage from "./pages/CreateTestPage";
 import AdminProtectedRoute from "./utils/AdminProtectedRoute";
 import ErrorPage from "./pages/ErrorPage";
+import TestPage from "./pages/TestPage";
 
 function App() {
     const dispatch = useDispatch();
@@ -31,6 +32,9 @@ function App() {
                 </ProtectedRoute>
                 <AdminProtectedRoute exact path="/create">
                     <CreateTestPage />
+                </AdminProtectedRoute>
+                <AdminProtectedRoute exact path="/test/:id">
+                    <TestPage />
                 </AdminProtectedRoute>
                 <Route path="*">
                     <ErrorPage />

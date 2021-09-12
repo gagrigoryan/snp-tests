@@ -3,7 +3,7 @@ import styles from "./homePage.module.scss";
 import PageLayout from "../components/page-layout/PageLayout";
 import { useDispatch, useSelector } from "react-redux";
 import { changeSort, getTests } from "../models/tests/slice";
-import { testsSelector, testsSortSelector } from "../models/tests/selectors";
+import { testsFetchedSelector, testsSelector, testsSortSelector } from "../models/tests/selectors";
 import TestCard from "../components/test-card/TestCard";
 import { isAdminSelector } from "../models/user/selectors";
 import Button from "../components/button/Button";
@@ -16,10 +16,11 @@ const HomePage: React.FC = () => {
     const tests = useSelector(testsSelector);
     const isAdmin = useSelector(isAdminSelector);
     const sort = useSelector(testsSortSelector);
+    const isFetched = useSelector(testsFetchedSelector);
 
     useEffect(() => {
-        dispatch(getTests());
-    }, [dispatch]);
+        !isFetched && dispatch(getTests());
+    }, [dispatch, isFetched]);
 
     const onSortClick = () => {
         if (sort === SortQueryEnum.CreatedAtAsc) {
