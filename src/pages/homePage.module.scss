@@ -3,5 +3,15 @@
 .container {
     composes: container from "../styles/layout.module.scss";
     composes: pNumber from "../styles/typography.module.scss";
-    padding-top: get-rem(100px);
+    padding: get-rem(70px) 0;
+}
+
+.actionsWrapper {
+    margin-bottom: get-rem(40px);
+}
+
+.testsWrapper {
+    display: grid;
+    grid-template-columns: get-rem(600px) get-rem(600px);
+    grid-gap: get-rem(30px);
 }

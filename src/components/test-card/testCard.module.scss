@@ -3,11 +3,12 @@
 .container {
     width: 100%;
     border: 1px solid $grayBorder;
-    padding: get-rem(30px) get-rem(30px);
+    padding: get-rem(20px) get-rem(45px);
     display: flex;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
+    border-radius: get-rem(10px);
 
     &:hover {
         border-color: $blue;
@@ -23,7 +24,7 @@
 .title {
     composes: headingH3 from "../../styles/typography.module.scss";
     composes: mobileHeadingH3 from "../../styles/typography.module.scss";
-    width: get-rem(500px);
+    width: get-rem(320px);
 
     @include phoneMedia {
         width: 100%;
@@ -48,6 +49,7 @@
 
 .buttonWrapper {
     margin-right: get-rem(30px);
+    display: flex;
 
     @include phoneMedia {
         margin-right: 0;

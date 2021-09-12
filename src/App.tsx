@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
-import { Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import { useDispatch } from "react-redux";
 import { getCurrentUser } from "./models/user/slice";
+import CreateTestPage from "./pages/CreateTestPage";
 
 function App() {
     const dispatch = useDispatch();
@@ -26,6 +27,9 @@ function App() {
                 <ProtectedRoute exact path="/register">
                     <RegisterPage />
                 </ProtectedRoute>
+                <Route exact path="/create">
+                    <CreateTestPage />
+                </Route>
             </Switch>
         </>
     );
