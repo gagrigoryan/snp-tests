@@ -8,6 +8,8 @@
 
 .actionsWrapper {
     margin-bottom: get-rem(40px);
+    display: flex;
+    align-items: center;
 }
 
 .testsWrapper {
@@ -18,5 +20,19 @@
     @include phoneMedia {
         grid-template-columns: 100%;
         grid-gap: get-vw(20px);
+    }
+}
+
+.filter {
+    composes: link from "../styles/link.module.scss";
+    margin-left: get-rem(25px);
+    display: block;
+}
+
+.inverseFilter {
+    composes: filter;
+
+    svg {
+        transform: rotate(180deg);
     }
 }

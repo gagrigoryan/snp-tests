@@ -1,15 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TestRequest, TTest } from "../../types/test";
+import { SortQueryEnum } from "../../types/sort";
 
 interface TestsStore {
     tests: TTest[];
     fetching: boolean;
     failed?: string;
+    sort: SortQueryEnum;
 }
 
 const initialState: TestsStore = {
     tests: [],
     fetching: false,
+    sort: SortQueryEnum.CreatedAtDesc,
 };
 
 const testsSlice = createSlice({
@@ -47,6 +50,9 @@ const testsSlice = createSlice({
             state.fetching = false;
             state.tests = state.tests.filter((test) => test.id !== payload);
         },
+        changeSort: (state, { payload }: PayloadAction<SortQueryEnum>) => {
+            state.sort = payload;
+        },
     },
 });
 
@@ -59,5 +65,6 @@ export const {
     createTestFailed,
     removeTest,
     removeTestSuccess,
+    changeSort,
 } = testsSlice.actions;
 export default testsSlice.reducer;

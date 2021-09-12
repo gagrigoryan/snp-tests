@@ -1,13 +1,24 @@
 import { TestRequest, TTest } from "../../types/test";
 import { deleteTest, fetchTests, postTest } from "../../api/test";
 import { takeLatest, all, put, call } from "redux-saga/effects";
-import { createTest, createTestSuccess, getTests, getTestsSuccess, removeTest, removeTestSuccess } from "./slice";
+import {
+    changeSort,
+    createTest,
+    createTestSuccess,
+    getTests,
+    getTestsSuccess,
+    removeTest,
+    removeTestSuccess,
+} from "./slice";
 import { PayloadAction } from "@reduxjs/toolkit";
+import { SortQueryEnum } from "../../types/sort";
 
-function* getTestsSaga() {
+function* getTestsSaga({ payload = SortQueryEnum.CreatedAtDesc }: PayloadAction<SortQueryEnum>) {
     try {
         // @ts-ignore
-        const response: any = yield call(fetchTests);
+        const response: any = yield call(fetchTests, {
+            sort: payload,
+        });
         yield put({
             type: getTestsSuccess.type,
             payload: response.tests,
@@ -43,6 +54,7 @@ function* removeTestSaga({ payload }: PayloadAction<number>) {
 
 const testsSagas = function* () {
     yield all([takeLatest(getTests.type, getTestsSaga)]);
+    yield all([takeLatest(changeSort.type, getTestsSaga)]);
     yield all([takeLatest(createTest.type, createTestSaga)]);
     yield all([takeLatest(removeTest.type, removeTestSaga)]);
 };

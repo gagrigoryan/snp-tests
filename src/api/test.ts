@@ -1,9 +1,19 @@
 import { TestRequest, TTest } from "../types/test";
 import { apiRequest } from "./apiRequest";
+import { SortQueryEnum } from "../types/sort";
 
-export const fetchTests = async () =>
+type TestQueryOptions = {
+    sort?: SortQueryEnum;
+};
+
+const getTestsPath = ({ sort }: TestQueryOptions) => {
+    const sortParameter = sort ? `sort=${sort}` : "";
+    return `tests?${sortParameter}`;
+};
+
+export const fetchTests = async (params: TestQueryOptions) =>
     apiRequest({
-        path: "tests",
+        path: getTestsPath(params),
         method: "GET",
     });
 
