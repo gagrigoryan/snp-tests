@@ -14,4 +14,9 @@
     display: grid;
     grid-template-columns: get-rem(600px) get-rem(600px);
     grid-gap: get-rem(30px);
+
+    @include phoneMedia {
+        grid-template-columns: 100%;
+        grid-gap: get-vw(20px);
+    }
 }

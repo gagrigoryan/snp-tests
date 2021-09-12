@@ -3,7 +3,7 @@ import styles from "./popup.module.scss";
 import PopupBase, { PopupBaseProps } from "./PopupBase";
 import Button from "../button/Button";
 
-type ActionPopupProps = PopupBaseProps & {
+export type ActionPopupProps = PopupBaseProps & {
     onSuccess?: () => void;
 };
 

@@ -13,3 +13,9 @@ export const postTest = async (body: TestRequest): Promise<TTest> =>
         method: "POST",
         body,
     });
+
+export const deleteTest = async (id: number) =>
+    apiRequest({
+        path: `tests/${id}`,
+        method: "DELETE",
+    });

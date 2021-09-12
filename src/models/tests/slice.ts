@@ -40,9 +40,24 @@ const testsSlice = createSlice({
             state.fetching = false;
             state.failed = payload;
         },
+        removeTest: (state, action: PayloadAction<number>) => {
+            state.fetching = true;
+        },
+        removeTestSuccess: (state, { payload }: PayloadAction<number>) => {
+            state.fetching = false;
+            state.tests = state.tests.filter((test) => test.id !== payload);
+        },
     },
 });
 
-export const { getTests, getTestsSuccess, getTestsFailed, createTest, createTestSuccess, createTestFailed } =
-    testsSlice.actions;
+export const {
+    getTests,
+    getTestsSuccess,
+    getTestsFailed,
+    createTest,
+    createTestSuccess,
+    createTestFailed,
+    removeTest,
+    removeTestSuccess,
+} = testsSlice.actions;
 export default testsSlice.reducer;

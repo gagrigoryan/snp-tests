@@ -1,7 +1,7 @@
 import { TestRequest, TTest } from "../../types/test";
-import { fetchTests, postTest } from "../../api/test";
+import { deleteTest, fetchTests, postTest } from "../../api/test";
 import { takeLatest, all, put, call } from "redux-saga/effects";
-import { createTest, createTestSuccess, getTests, getTestsSuccess } from "./slice";
+import { createTest, createTestSuccess, getTests, getTestsSuccess, removeTest, removeTestSuccess } from "./slice";
 import { PayloadAction } from "@reduxjs/toolkit";
 
 function* getTestsSaga() {
@@ -29,9 +29,22 @@ function* createTestSaga({ payload }: PayloadAction<TestRequest>) {
     }
 }
 
+function* removeTestSaga({ payload }: PayloadAction<number>) {
+    try {
+        yield call(deleteTest, payload);
+        yield put({
+            type: removeTestSuccess.type,
+            payload,
+        });
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 const testsSagas = function* () {
     yield all([takeLatest(getTests.type, getTestsSaga)]);
     yield all([takeLatest(createTest.type, createTestSaga)]);
+    yield all([takeLatest(removeTest.type, removeTestSaga)]);
 };
 
 export default testsSagas;
