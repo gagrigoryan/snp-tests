@@ -5,6 +5,7 @@ import { SortQueryEnum } from "../../types/sort";
 interface TestsStore {
     tests: TTest[];
     fetching: boolean;
+    testsFetched: boolean;
     failed?: string;
     sort: SortQueryEnum;
 }
@@ -12,6 +13,7 @@ interface TestsStore {
 const initialState: TestsStore = {
     tests: [],
     fetching: false,
+    testsFetched: false,
     sort: SortQueryEnum.CreatedAtDesc,
 };
 
@@ -26,10 +28,18 @@ const testsSlice = createSlice({
         getTestsSuccess: (state, { payload }: PayloadAction<TTest[]>) => {
             state.fetching = false;
             state.tests = payload;
+            state.testsFetched = true;
         },
         getTestsFailed: (state, { payload }: PayloadAction<string>) => {
             state.fetching = false;
             state.failed = payload;
+        },
+        getCurrentTest: (state, action: PayloadAction<number>) => {
+            state.fetching = true;
+        },
+        getCurrentTestSuccess: (state, { payload }: PayloadAction<TTest>) => {
+            state.fetching = false;
+            state.tests = [...state.tests, payload];
         },
         createTest: (state, action: PayloadAction<TestRequest>) => {
             state.fetching = true;
@@ -50,6 +60,13 @@ const testsSlice = createSlice({
             state.fetching = false;
             state.tests = state.tests.filter((test) => test.id !== payload);
         },
+        updateTest: (state, action: PayloadAction<TTest>) => {
+            state.fetching = true;
+        },
+        updateTestSuccess: (state, { payload }: PayloadAction<TTest>) => {
+            state.fetching = false;
+            state.tests = state.tests.map((test) => (test.id === payload.id ? payload : test));
+        },
         changeSort: (state, { payload }: PayloadAction<SortQueryEnum>) => {
             state.sort = payload;
         },
@@ -60,11 +77,15 @@ export const {
     getTests,
     getTestsSuccess,
     getTestsFailed,
+    getCurrentTest,
+    getCurrentTestSuccess,
     createTest,
     createTestSuccess,
     createTestFailed,
     removeTest,
     removeTestSuccess,
+    updateTest,
+    updateTestSuccess,
     changeSort,
 } = testsSlice.actions;
 export default testsSlice.reducer;
