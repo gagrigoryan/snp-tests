@@ -1,24 +1,21 @@
 import React, { useEffect } from "react";
-import { Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ProtectedRoute from "./utils/ProtectedRoute";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getCurrentUser } from "./models/user/slice";
-import { userSelector } from "./models/user/selectors";
+import CreateTestPage from "./pages/CreateTestPage";
+import AdminProtectedRoute from "./utils/AdminProtectedRoute";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
     const dispatch = useDispatch();
-    const user = useSelector(userSelector);
 
     useEffect(() => {
         dispatch(getCurrentUser());
     }, [dispatch]);
-
-    useEffect(() => {
-        console.log("User:", user);
-    }, [user]);
 
     return (
         <>
@@ -32,6 +29,12 @@ function App() {
                 <ProtectedRoute exact path="/register">
                     <RegisterPage />
                 </ProtectedRoute>
+                <AdminProtectedRoute exact path="/create">
+                    <CreateTestPage />
+                </AdminProtectedRoute>
+                <Route path="*">
+                    <ErrorPage />
+                </Route>
             </Switch>
         </>
     );

@@ -1,0 +1,50 @@
+@import "../styles/vars.module";
+
+.container {
+    background-color: $blueLight;
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    composes: pNumber from "../styles/typography.module.scss";
+    position: absolute;
+    left: get-rem(40px);
+    top: get-rem(50px);
+    color: #7ba7b8;
+}
+
+.title {
+    font-family: "GothamPro", sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: get-rem(268px);
+    line-height: get-rem(370px);
+    color: #7ba7b8;
+}
+
+.image {
+    width: get-rem(600px);
+    margin-top: get-rem(-86px);
+}
+
+.text {
+    composes: headingH2 from "../styles/typography.module.scss";
+    composes: mobileHeadingH2 from "../styles/typography.module.scss";
+    width: get-rem(520px);
+    text-align: center;
+    color: #7ba7b8;
+    margin-top: get-rem(36px);
+    margin-bottom: get-rem(60px);
+}

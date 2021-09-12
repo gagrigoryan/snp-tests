@@ -3,4 +3,36 @@
 .container {
     composes: container from "../styles/layout.module.scss";
     composes: pNumber from "../styles/typography.module.scss";
+    padding: get-rem(70px) 0;
+}
+
+.actionsWrapper {
+    margin-bottom: get-rem(40px);
+    display: flex;
+    align-items: center;
+}
+
+.testsWrapper {
+    display: grid;
+    grid-template-columns: get-rem(600px) get-rem(600px);
+    grid-gap: get-rem(30px);
+
+    @include phoneMedia {
+        grid-template-columns: 100%;
+        grid-gap: get-vw(20px);
+    }
+}
+
+.filter {
+    composes: link from "../styles/link.module.scss";
+    margin-left: get-rem(25px);
+    display: block;
+}
+
+.inverseFilter {
+    composes: filter;
+
+    svg {
+        transform: rotate(180deg);
+    }
 }

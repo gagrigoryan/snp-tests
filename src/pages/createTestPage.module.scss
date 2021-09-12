@@ -1,0 +1,6 @@
+@import "../styles/vars.module";
+
+.container {
+    composes: container from "../styles/layout.module.scss";
+    padding: get-rem(75px) 0;
+}

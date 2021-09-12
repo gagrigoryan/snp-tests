@@ -9,5 +9,9 @@
     &:hover {
         border-bottom: 1px solid transparent;
         color: $blueHover;
+
+        svg path {
+            stroke: $blueHover;
+        }
     }
 }
