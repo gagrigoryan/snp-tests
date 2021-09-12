@@ -7,6 +7,8 @@ import ProtectedRoute from "./utils/ProtectedRoute";
 import { useDispatch } from "react-redux";
 import { getCurrentUser } from "./models/user/slice";
 import CreateTestPage from "./pages/CreateTestPage";
+import AdminProtectedRoute from "./utils/AdminProtectedRoute";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
     const dispatch = useDispatch();
@@ -27,8 +29,11 @@ function App() {
                 <ProtectedRoute exact path="/register">
                     <RegisterPage />
                 </ProtectedRoute>
-                <Route exact path="/create">
+                <AdminProtectedRoute exact path="/create">
                     <CreateTestPage />
+                </AdminProtectedRoute>
+                <Route path="*">
+                    <ErrorPage />
                 </Route>
             </Switch>
         </>
