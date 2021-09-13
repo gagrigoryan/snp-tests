@@ -48,7 +48,7 @@ const TestCard: React.FC<TestCardProps> = ({ id, title, editable, className }) =
             </div>
             {deletePopup && (
                 <ActionPopup
-                    title={`Вы хотите удалить тест ${id}`}
+                    title={`Вы хотите удалить тест №${id}`}
                     onClose={() => setDeletePopup(false)}
                     onSuccess={onDeleteClick}
                 />

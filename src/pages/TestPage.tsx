@@ -8,6 +8,7 @@ import { getCurrentTest, updateTest } from "../models/tests/slice";
 import { TTest } from "../types/test";
 import { getTestById } from "../utils/getTestById";
 import TestForm from "../components/form/TestForm";
+import QuestionCard from "../components/question-card/QuestionCard";
 
 interface ParamsType {
     id: string;
@@ -47,10 +48,22 @@ const TestPage: React.FC = () => {
     };
 
     return (
-        <PageLayout title="Edit page">
+        <PageLayout title={`Страница теста №${currentTest?.id}`}>
             {currentTest && (
                 <div className={styles.container}>
-                    <TestForm defaultValues={currentTest} onSubmit={onSubmit} />
+                    <div className={styles.contentWrapper}>
+                        <TestForm defaultValues={currentTest} onSubmit={onSubmit} />
+                        <div className={styles.questionWrapper}>
+                            {currentTest.questions.map((question) => (
+                                <QuestionCard
+                                    className={styles.question}
+                                    key={question.id}
+                                    testId={currentTest.id}
+                                    {...question}
+                                />
+                            ))}
+                        </div>
+                    </div>
                 </div>
             )}
         </PageLayout>

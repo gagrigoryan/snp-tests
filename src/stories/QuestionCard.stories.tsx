@@ -1,6 +1,7 @@
 import { ComponentProps } from "react";
 import { Meta, Story } from "@storybook/react/types-6-0";
-import QuestionCard, { QuestionTypesEnum } from "../components/question-card/QuestionCard";
+import QuestionCard from "../components/question-card/QuestionCard";
+import { QuestionTypesEnum } from "../types/question";
 
 export default {
     title: "QuestionCard",
@@ -16,11 +17,11 @@ Pink.args = {
 export const Purple = Template.bind({});
 Purple.args = {
     title: "Вопрос номер №21",
-    type: QuestionTypesEnum.Multiple,
+    question_type: QuestionTypesEnum.Multiple,
 };
 
 export const Green = Template.bind({});
 Green.args = {
     title: "Вопрос номер №21",
-    type: QuestionTypesEnum.Number,
+    question_type: QuestionTypesEnum.Number,
 };

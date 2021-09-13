@@ -4,3 +4,17 @@
     composes: container from "../styles/layout.module.scss";
     padding: get-rem(75px) 0;
 }
+
+.contentWrapper {
+    width: 45%;
+}
+
+.questionWrapper {
+    margin-top: get-rem(40px);
+}
+
+.question {
+    &:not(:last-child) {
+        margin-bottom: get-rem(20px);
+    }
+}
