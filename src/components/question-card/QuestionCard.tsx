@@ -7,21 +7,11 @@ import { QuestionTypesEnum, TQuestion } from "../../types/question";
 import ActionPopup from "../popup/ActionPopup";
 import { useDispatch } from "react-redux";
 import { removeQuestion } from "../../models/questions/slice";
+import { getQuestionTypeAsText } from "../../utils/getQuestionTypeAsText";
 
 type QuestionCardProps = TQuestion & {
     testId: number;
     className?: string;
-};
-
-const questionTypeAsText = (type: QuestionTypesEnum) => {
-    switch (type) {
-        case QuestionTypesEnum.Single:
-            return "Один из списка";
-        case QuestionTypesEnum.Multiple:
-            return "Несколько из списка";
-        case QuestionTypesEnum.Number:
-            return "Численный ответ";
-    }
 };
 
 const QuestionCard: React.FC<QuestionCardProps> = ({
@@ -53,7 +43,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
                 )}>
                 <div className={styles.titleWrapper}>
                     <h3 className={styles.title}>{title}</h3>
-                    <span className={styles.type}>#{questionTypeAsText(question_type)}</span>
+                    <span className={styles.type}>#{getQuestionTypeAsText(question_type)}</span>
                 </div>
                 <div className={styles.actionWrapper}>
                     <button className={styles.actionButton}>

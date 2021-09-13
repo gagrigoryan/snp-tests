@@ -1,8 +1,23 @@
 import { all, call, put, takeLatest } from "redux-saga/effects";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { deleteQuestion } from "../../api/question";
-import { removeQuestion, removeQuestionSuccess } from "./slice";
-import { QuestionRemoveType } from "../../types/question";
+import { deleteQuestion, postQuestion } from "../../api/question";
+import { createQuestion, createQuestionSuccess, removeQuestion, removeQuestionSuccess } from "./slice";
+import { QuestionCreateType, QuestionRemoveType, TQuestion } from "../../types/question";
+
+function* createQuestionSaga({ payload }: PayloadAction<QuestionCreateType>) {
+    try {
+        const question: TQuestion = yield call(postQuestion, payload.testId, payload.question);
+        yield put({
+            type: createQuestionSuccess.type,
+            payload: {
+                testId: payload.testId,
+                question,
+            },
+        });
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 function* removeQuestionsSaga({ payload }: PayloadAction<QuestionRemoveType>) {
     try {
@@ -17,6 +32,7 @@ function* removeQuestionsSaga({ payload }: PayloadAction<QuestionRemoveType>) {
 }
 
 const questionsSagas = function* () {
+    yield all([takeLatest(createQuestion.type, createQuestionSaga)]);
     yield all([takeLatest(removeQuestion.type, removeQuestionsSaga)]);
 };
 

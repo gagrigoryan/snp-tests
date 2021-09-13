@@ -1,4 +1,4 @@
-import { QuestionRemoveType, TQuestion } from "../../types/question";
+import { QuestionCreateType, QuestionRemoveType, TQuestion } from "../../types/question";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface QuestionsStore {
@@ -16,6 +16,12 @@ const questionsSlice = createSlice({
     name: "questions",
     initialState,
     reducers: {
+        createQuestion: (state, action: PayloadAction<QuestionCreateType>) => {
+            state.fetching = true;
+        },
+        createQuestionSuccess: (state, action: PayloadAction<QuestionCreateType>) => {
+            state.fetching = false;
+        },
         removeQuestion: (state, action: PayloadAction<QuestionRemoveType>) => {
             state.fetching = true;
         },
@@ -25,6 +31,6 @@ const questionsSlice = createSlice({
     },
 });
 
-export const { removeQuestion, removeQuestionSuccess } = questionsSlice.actions;
+export const { removeQuestion, removeQuestionSuccess, createQuestion, createQuestionSuccess } = questionsSlice.actions;
 
 export default questionsSlice.reducer;

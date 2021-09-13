@@ -16,3 +16,8 @@ export type QuestionRemoveType = {
     id: number;
     testId: number;
 };
+
+export type QuestionCreateType = {
+    testId: number;
+    question: TQuestion;
+};

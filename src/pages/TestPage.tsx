@@ -9,6 +9,9 @@ import { TTest } from "../types/test";
 import { getTestById } from "../utils/getTestById";
 import TestForm from "../components/form/TestForm";
 import QuestionCard from "../components/question-card/QuestionCard";
+import QuestionWidget from "../components/question-widget/QuestionWidget";
+import { TQuestion } from "../types/question";
+import { createQuestion } from "../models/questions/slice";
 
 interface ParamsType {
     id: string;
@@ -47,6 +50,16 @@ const TestPage: React.FC = () => {
             );
     };
 
+    const onQuestionSubmit = (data: TQuestion) => {
+        currentTest &&
+            dispatch(
+                createQuestion({
+                    testId: currentTest.id,
+                    question: data,
+                })
+            );
+    };
+
     return (
         <PageLayout title={`Страница теста №${currentTest?.id}`}>
             {currentTest && (
@@ -63,6 +76,9 @@ const TestPage: React.FC = () => {
                                 />
                             ))}
                         </div>
+                    </div>
+                    <div className={styles.questionWidget}>
+                        <QuestionWidget onSubmit={onQuestionSubmit} />
                     </div>
                 </div>
             )}

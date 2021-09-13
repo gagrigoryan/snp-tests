@@ -3,10 +3,13 @@
 .container {
     composes: container from "../styles/layout.module.scss";
     padding: get-rem(75px) 0;
+    display: flex;
 }
 
 .contentWrapper {
-    width: 45%;
+    width: get-rem(600px);
+    margin-right: get-rem(40px);
+    flex-shrink: 0;
 }
 
 .questionWrapper {
@@ -17,4 +20,8 @@
     &:not(:last-child) {
         margin-bottom: get-rem(20px);
     }
+}
+
+.questionWidget {
+    width: 100%;
 }

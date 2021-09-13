@@ -1,0 +1,11 @@
+@import "../../styles/vars.module";
+
+.container {
+    width: 100%;
+}
+
+.title {
+    composes: headingH2 from "../../styles/typography.module.scss";
+    composes: mobileHeadingH2 from "../../styles/typography.module.scss";
+    margin-bottom: get-rem(40px);
+}

@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TestRequest, TTest } from "../../types/test";
 import { SortQueryEnum } from "../../types/sort";
-import { removeQuestionSuccess } from "../questions/slice";
-import { QuestionRemoveType } from "../../types/question";
+import { createQuestionSuccess, removeQuestionSuccess } from "../questions/slice";
+import { QuestionCreateType, QuestionRemoveType } from "../../types/question";
 import { removeQuestionFromTest } from "../../utils/removeQuestionFromTest";
+import { addQuestionToTest } from "../../utils/addQuestionToTest";
 
 interface TestsStore {
     tests: TTest[];
@@ -75,6 +76,9 @@ const testsSlice = createSlice({
         },
     },
     extraReducers: {
+        [createQuestionSuccess.type]: (state: TestsStore, { payload }: PayloadAction<QuestionCreateType>) => {
+            state.tests = addQuestionToTest(state.tests, payload.testId, payload.question);
+        },
         [removeQuestionSuccess.type]: (state: TestsStore, { payload }: PayloadAction<QuestionRemoveType>) => {
             state.tests = removeQuestionFromTest(state.tests, payload.testId, payload.id);
         },
