@@ -1,0 +1,60 @@
+@import "../../styles/vars.module";
+
+.container {
+    padding: get-rem(12px) get-rem(12px) get-rem(12px) get-rem(20px);
+    display: flex;
+    align-items: center;
+    box-shadow: 0 get-rem(3px) get-rem(12px) rgba(0, 0, 0, 0.12);
+    border-bottom-left-radius: get-rem(10px);
+    border-top-left-radius: get-rem(10px);
+    max-width: get-rem(180px);
+    background-color: $white;
+}
+
+.successContainer {
+    composes: container;
+
+    .icon {
+        svg path {
+            stroke: $green;
+        }
+    }
+
+    .text {
+        color: $green;
+    }
+}
+
+.loadingContainer {
+    composes: container;
+
+    .text {
+        color: $blue;
+    }
+}
+
+.errorContainer {
+    composes: container;
+
+    .text {
+        color: $redError;
+    }
+}
+
+.icon {
+    margin-right: get-rem(16px);
+    svg {
+        width: get-rem(26px);
+        height: get-rem(26px);
+    }
+}
+
+.text {
+    composes: pNormal from "../../styles/typography.module.scss";
+}
+
+.alertWrapper {
+    position: fixed;
+    right: 0;
+    top: 20%;
+}

@@ -13,3 +13,8 @@
     margin-top: get-rem(15px);
     color: $redError;
 }
+
+.selectField {
+    composes: field;
+    width: get-rem(300px) !important;
+}

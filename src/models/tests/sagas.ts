@@ -16,6 +16,7 @@ import {
 } from "./slice";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { SortQueryEnum } from "../../types/sort";
+import { push } from "connected-react-router";
 
 function* getTestsSaga({ payload = SortQueryEnum.CreatedAtDesc }: PayloadAction<SortQueryEnum>) {
     try {
@@ -75,6 +76,7 @@ function* updateTestSaga({ payload }: PayloadAction<TTest>) {
             type: updateTestSuccess.type,
             payload: test,
         });
+        yield put(push("/"));
     } catch (error) {
         console.error(error);
     }
