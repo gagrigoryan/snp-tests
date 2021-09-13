@@ -1,14 +1,24 @@
 import React from "react";
 import styles from "./questionWidget.module.scss";
 import QuestionForm, { QuestionFormProps } from "../form/QuestionForm";
+import Button from "../button/Button";
 
-type QuestionWidgetProps = QuestionFormProps & {};
+type QuestionWidgetProps = QuestionFormProps & {
+    onReset?: () => void;
+};
 
-const QuestionWidget: React.FC<QuestionWidgetProps> = ({ ...props }) => {
+const QuestionWidget: React.FC<QuestionWidgetProps> = ({ defaultValues, onReset, ...props }) => {
     return (
         <div className={styles.container}>
-            <h2 className={styles.title}>Создание вопроса</h2>
-            <QuestionForm {...props} />
+            <div className={styles.header}>
+                <h2 className={styles.title}>{defaultValues ? "Редактирование вопроса" : "Создание вопроса"}</h2>
+                {defaultValues && (
+                    <Button onClick={onReset} outlined>
+                        Отмена
+                    </Button>
+                )}
+            </div>
+            <QuestionForm {...props} defaultValues={defaultValues} />
         </div>
     );
 };

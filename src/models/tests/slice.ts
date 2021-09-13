@@ -1,10 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TestRequest, TTest } from "../../types/test";
 import { SortQueryEnum } from "../../types/sort";
-import { createQuestionSuccess, removeQuestionSuccess } from "../questions/slice";
-import { QuestionCreateType, QuestionRemoveType } from "../../types/question";
-import { removeQuestionFromTest } from "../../utils/removeQuestionFromTest";
-import { addQuestionToTest } from "../../utils/addQuestionToTest";
+import { createQuestionSuccess, removeQuestionSuccess, updateQuestionSuccess } from "../questions/slice";
+import { QuestionCreateType, QuestionRemoveType, QuestionUpdateType } from "../../types/question";
+import { addTestQuestion, removeTestQuestion, updateTestQuestion } from "../../utils/testQuestion";
 
 interface TestsStore {
     tests: TTest[];
@@ -77,10 +76,13 @@ const testsSlice = createSlice({
     },
     extraReducers: {
         [createQuestionSuccess.type]: (state: TestsStore, { payload }: PayloadAction<QuestionCreateType>) => {
-            state.tests = addQuestionToTest(state.tests, payload.testId, payload.question);
+            state.tests = addTestQuestion(state.tests, payload.testId, payload.question);
         },
         [removeQuestionSuccess.type]: (state: TestsStore, { payload }: PayloadAction<QuestionRemoveType>) => {
-            state.tests = removeQuestionFromTest(state.tests, payload.testId, payload.id);
+            state.tests = removeTestQuestion(state.tests, payload.testId, payload.id);
+        },
+        [updateQuestionSuccess.type]: (state: TestsStore, { payload }: PayloadAction<QuestionUpdateType>) => {
+            state.tests = updateTestQuestion(state.tests, payload.testId, payload.question);
         },
     },
 });

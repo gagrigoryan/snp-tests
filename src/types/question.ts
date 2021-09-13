@@ -21,3 +21,5 @@ export type QuestionCreateType = {
     testId: number;
     question: TQuestion;
 };
+
+export type QuestionUpdateType = QuestionCreateType;

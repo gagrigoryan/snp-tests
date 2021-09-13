@@ -11,6 +11,7 @@ import { getQuestionTypeAsText } from "../../utils/getQuestionTypeAsText";
 
 type QuestionCardProps = TQuestion & {
     testId: number;
+    onEditClick?: () => void;
     className?: string;
 };
 
@@ -19,6 +20,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
     testId,
     title,
     question_type = QuestionTypesEnum.Single,
+    onEditClick,
     className,
 }) => {
     const [deletePopup, setDeletePopup] = useState<boolean>(false);
@@ -46,7 +48,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({
                     <span className={styles.type}>#{getQuestionTypeAsText(question_type)}</span>
                 </div>
                 <div className={styles.actionWrapper}>
-                    <button className={styles.actionButton}>
+                    <button onClick={onEditClick} className={styles.actionButton}>
                         <PencilIcon />
                     </button>
                     <button onClick={() => setDeletePopup(true)} className={styles.actionButton}>

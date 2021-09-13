@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./testPage.module.scss";
 import PageLayout from "../components/page-layout/PageLayout";
 import { useParams } from "react-router-dom";
@@ -11,7 +11,7 @@ import TestForm from "../components/form/TestForm";
 import QuestionCard from "../components/question-card/QuestionCard";
 import QuestionWidget from "../components/question-widget/QuestionWidget";
 import { TQuestion } from "../types/question";
-import { createQuestion } from "../models/questions/slice";
+import { createQuestion, updateQuestion } from "../models/questions/slice";
 
 interface ParamsType {
     id: string;
@@ -26,7 +26,9 @@ const TestPage: React.FC = () => {
     const dispatch = useDispatch();
     const tests = useSelector(testsSelector);
     const isFetched = useSelector(testsFetchedSelector);
+    const widgetRef = useRef<HTMLDivElement | null>(null);
     const [currentTest, setCurrentTest] = useState<TTest>();
+    const [currentQuestion, setCurrentQuestion] = useState<TQuestion>();
 
     useEffect(() => {
         if (isNumeric(id) && !isFetched) {
@@ -40,6 +42,11 @@ const TestPage: React.FC = () => {
         }
     }, [tests, id]);
 
+    const onEditClick = (question: TQuestion) => {
+        setCurrentQuestion(question);
+        widgetRef.current?.scrollIntoView();
+    };
+
     const onSubmit = (data: TTest) => {
         currentTest &&
             dispatch(
@@ -51,13 +58,27 @@ const TestPage: React.FC = () => {
     };
 
     const onQuestionSubmit = (data: TQuestion) => {
-        currentTest &&
-            dispatch(
-                createQuestion({
-                    testId: currentTest.id,
-                    question: data,
-                })
-            );
+        if (currentTest) {
+            if (currentQuestion) {
+                dispatch(
+                    updateQuestion({
+                        testId: currentTest.id,
+                        question: {
+                            ...data,
+                            id: currentQuestion.id,
+                        },
+                    })
+                );
+            } else {
+                dispatch(
+                    createQuestion({
+                        testId: currentTest.id,
+                        question: data,
+                    })
+                );
+            }
+            setCurrentQuestion(undefined);
+        }
     };
 
     return (
@@ -71,14 +92,19 @@ const TestPage: React.FC = () => {
                                 <QuestionCard
                                     className={styles.question}
                                     key={question.id}
+                                    onEditClick={() => onEditClick(question)}
                                     testId={currentTest.id}
                                     {...question}
                                 />
                             ))}
                         </div>
                     </div>
-                    <div className={styles.questionWidget}>
-                        <QuestionWidget onSubmit={onQuestionSubmit} />
+                    <div ref={widgetRef} className={styles.questionWidget}>
+                        <QuestionWidget
+                            onReset={() => setCurrentQuestion(undefined)}
+                            defaultValues={currentQuestion}
+                            onSubmit={onQuestionSubmit}
+                        />
                     </div>
                 </div>
             )}

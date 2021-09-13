@@ -4,8 +4,14 @@
     width: 100%;
 }
 
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: get-rem(40px);
+}
+
 .title {
     composes: headingH2 from "../../styles/typography.module.scss";
     composes: mobileHeadingH2 from "../../styles/typography.module.scss";
-    margin-bottom: get-rem(40px);
 }

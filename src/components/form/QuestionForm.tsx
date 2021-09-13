@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./form.module.scss";
 import { useForm } from "react-hook-form";
 import TextField from "../fields/TextField";
@@ -32,8 +32,19 @@ const items: QuestionSelectItem[] = [
     },
 ];
 
+const getItemByValue = (value: QuestionTypesEnum) => {
+    switch (value) {
+        case QuestionTypesEnum.Single:
+            return items[0];
+        case QuestionTypesEnum.Multiple:
+            return items[1];
+        case QuestionTypesEnum.Number:
+            return items[2];
+    }
+};
+
 const QuestionForm: React.FC<QuestionFormProps> = ({ defaultValues, onSubmit }) => {
-    const { control, handleSubmit } = useForm({
+    const { control, handleSubmit, setValue } = useForm({
         mode: "onTouched",
     });
     const [type, setType] = useState<QuestionSelectItem>(items[0]);
@@ -44,6 +55,10 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ defaultValues, onSubmit }) 
             question_type: type.value,
         });
     };
+
+    useEffect(() => {
+        setValue("title", defaultValues?.title);
+    }, [defaultValues, setValue]);
 
     return (
         <div className={styles.container}>
@@ -60,7 +75,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ defaultValues, onSubmit }) 
                 />
                 <Select
                     className={styles.selectField}
-                    defaultItem={items[0]}
+                    defaultItem={defaultValues ? getItemByValue(defaultValues.question_type) : items[0]}
                     onSelect={(type) => setType(type)}
                     items={items}
                 />

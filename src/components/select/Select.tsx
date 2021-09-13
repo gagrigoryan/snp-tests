@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./select.module.scss";
 import clsx from "clsx";
 import ArrowIcon from "../icons/ArrowIcon";
@@ -38,6 +38,10 @@ const Select: React.FC<SelectProps> = ({ items, onSelect, className, defaultItem
     const outsideClick = () => {
         setFocused(false);
     };
+
+    useEffect(() => {
+        defaultItem && onItemClick(defaultItem);
+    }, [defaultItem]);
 
     // @ts-ignore
     useOutsideClick(ref, outsideClick);

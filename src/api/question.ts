@@ -13,3 +13,10 @@ export const deleteQuestion = async (id: number) =>
         path: `questions/${id}`,
         method: "DELETE",
     });
+
+export const changeQuestion = async (id: number, body: TQuestion) =>
+    apiRequest({
+        path: `questions/${id}`,
+        method: "PATCH",
+        body,
+    });

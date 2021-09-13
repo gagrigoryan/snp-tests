@@ -16,5 +16,5 @@
 
 .selectField {
     composes: field;
-    width: get-rem(300px);
+    width: get-rem(300px) !important;
 }
