@@ -9,7 +9,7 @@ export type CheckboxProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HT
     onChange?: (value: any) => void;
 };
 
-const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(({ className, label, onChange }, ref) => {
+const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(({ className, label, onChange, ...props }, ref) => {
     return (
         <label className={clsx(styles.container, className)}>
             <input
@@ -17,6 +17,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(({ className,
                 type="checkbox"
                 className={styles.input}
                 onChange={(e) => onChange && onChange(e.target.checked)}
+                {...props}
             />
             <div className={styles.box}>
                 <CheckIcon />

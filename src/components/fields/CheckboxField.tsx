@@ -22,7 +22,7 @@ const CheckboxField: React.FC<CheckboxProps & ControlledFieldProps> = ({
         defaultValue: defaultChecked,
         shouldUnregister: true,
     });
-    return <Checkbox {...props} ref={ref} {...inputProps} label={label} />;
+    return <Checkbox {...props} ref={ref} {...inputProps} defaultChecked={defaultChecked} label={label} />;
 };
 
 export default CheckboxField;

@@ -1,3 +1,5 @@
+import { TAnswer } from "./answer";
+
 export enum QuestionTypesEnum {
     Single = "single",
     Multiple = "multiple",
@@ -9,7 +11,7 @@ export type TQuestion = {
     title: string;
     question_type: QuestionTypesEnum;
     answer?: number;
-    answers?: number[];
+    answers: TAnswer[];
 };
 
 export type QuestionRemoveType = {

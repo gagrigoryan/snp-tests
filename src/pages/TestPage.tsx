@@ -101,6 +101,7 @@ const TestPage: React.FC = () => {
                     </div>
                     <div ref={widgetRef} className={styles.questionWidget}>
                         <QuestionWidget
+                            testId={+id}
                             onReset={() => setCurrentQuestion(undefined)}
                             defaultValues={currentQuestion}
                             onSubmit={onQuestionSubmit}
