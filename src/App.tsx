@@ -6,7 +6,6 @@ import RegisterPage from "./pages/RegisterPage";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import { useDispatch } from "react-redux";
 import { getCurrentUser } from "./models/user/slice";
-import CreateTestPage from "./pages/CreateTestPage";
 import AdminProtectedRoute from "./utils/AdminProtectedRoute";
 import ErrorPage from "./pages/ErrorPage";
 import TestPage from "./pages/TestPage";
@@ -30,9 +29,6 @@ function App() {
                 <ProtectedRoute exact path="/register">
                     <RegisterPage />
                 </ProtectedRoute>
-                <AdminProtectedRoute exact path="/create">
-                    <CreateTestPage />
-                </AdminProtectedRoute>
                 <AdminProtectedRoute exact path="/test/:id">
                     <TestPage />
                 </AdminProtectedRoute>

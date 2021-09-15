@@ -1,5 +1,9 @@
 @import "../../styles/vars.module";
 
+.content {
+    margin-top: get-rem(30px);
+}
+
 .actionWrapper {
     display: flex;
     justify-content: center;

@@ -1,23 +1,18 @@
 import React, { useEffect, useState } from "react";
 import styles from "./form.module.scss";
-import { Control, useForm } from "react-hook-form";
-import TextField from "../fields/TextField";
+import { useForm } from "react-hook-form";
 import { TAnswer } from "../../types/answer";
 import Button from "../button/Button";
-import Checkbox from "../checkbox/Checkbox";
 import { useDispatch } from "react-redux";
 import { TQuestion } from "../../types/question";
 import { createAnswer, removeAnswer, updateAnswer } from "../../models/answers/slice";
-
-type AnswerItemType = TAnswer & {
-    onAnswerChange: (data: TAnswer) => void;
-    onDelete: (id: TAnswer) => void;
-    control: Control;
-};
+import MultipleAnswerField from "../fields/MultipleAnswerField";
+import { prepareAnswerDataOnChange } from "../../utils/prepareAnswerDataOnChange";
 
 type MultipleAnswerFormProps = {
     testId: number;
     question: TQuestion;
+    multiple?: boolean;
 };
 
 const initialAnswers: TAnswer[] = [
@@ -35,59 +30,15 @@ const initialAnswers: TAnswer[] = [
     },
 ];
 
-const MultipleAnswerItem: React.FC<AnswerItemType> = ({
-    text,
-    is_right,
-    onAnswerChange,
-    onDelete,
-    control,
-    ...props
-}) => {
-    const [checked, setChecked] = useState<boolean>(is_right);
-    const [value, setValue] = useState<string>(text);
-
-    useEffect(() => {
-        onAnswerChange({
-            ...props,
-            text: value,
-            is_right: checked,
-        });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [checked, value]);
-
-    const onDeleteClick = () => {
-        onDelete({
-            ...props,
-            text: value,
-            is_right: checked,
-        });
-    };
-
-    return (
-        <div className={styles.answerItem}>
-            <Checkbox label="" defaultChecked={checked} onChange={(value: any) => setChecked(value)} />
-            <TextField
-                control={control}
-                name={`text-${props.id}`}
-                placeholder="Введите текст ответа"
-                defaultValue={value}
-                onChange={(e: any) => setValue(e.target.value)}
-                rules={{
-                    required: { value: true, message: "Введите текст ответа" },
-                }}
-            />
-            <span onClick={onDeleteClick} className={styles.link}>
-                Удалить
-            </span>
-        </div>
-    );
+const getCorrectAnswers = (answers: TAnswer[]): TAnswer[] => {
+    return answers.length >= 2 ? answers : initialAnswers;
 };
 
-const MultipleAnswerForm: React.FC<MultipleAnswerFormProps> = ({ testId, question }) => {
+const MultipleAnswerForm: React.FC<MultipleAnswerFormProps> = ({ testId, question, multiple }) => {
     const { control, handleSubmit } = useForm({
         mode: "onTouched",
     });
-    const [answers, setAnswers] = useState<TAnswer[]>(question.answers.length > 0 ? question.answers : initialAnswers);
+    const [answers, setAnswers] = useState<TAnswer[]>(getCorrectAnswers(question.answers));
     const dispatch = useDispatch();
 
     const handleCreate = () => {
@@ -120,8 +71,8 @@ const MultipleAnswerForm: React.FC<MultipleAnswerFormProps> = ({ testId, questio
         }
     };
 
-    const onAnswerChange = (data: TAnswer) => {
-        setAnswers(answers.map((answer) => (answer.id === data.id ? data : answer)));
+    const onAnswerChange = (answer: TAnswer) => {
+        setAnswers(prepareAnswerDataOnChange(answers, answer, !!multiple));
     };
 
     const onSubmit = () => {
@@ -135,6 +86,10 @@ const MultipleAnswerForm: React.FC<MultipleAnswerFormProps> = ({ testId, questio
         });
     };
 
+    useEffect(() => {
+        setAnswers(getCorrectAnswers(question.answers));
+    }, [question]);
+
     return (
         <div className={styles.answerForm}>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -143,12 +98,13 @@ const MultipleAnswerForm: React.FC<MultipleAnswerFormProps> = ({ testId, questio
                 </span>
                 <div className={styles.answersWrapper}>
                     {answers.map((item) => (
-                        <MultipleAnswerItem
+                        <MultipleAnswerField
                             key={`${item.id}`}
                             {...item}
                             onAnswerChange={onAnswerChange}
                             onDelete={handleDelete}
                             control={control}
+                            multiple={multiple}
                         />
                     ))}
                 </div>

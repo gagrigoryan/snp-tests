@@ -1,4 +1,4 @@
-import { all, takeLatest, call, put } from "redux-saga/effects";
+import { all, call, put, takeEvery } from "redux-saga/effects";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { AnswerCreateType, AnswerRemoveType, AnswerUpdateType, TAnswer } from "../../types/answer";
 import { changeAnswer, deleteAnswer, postAnswer } from "../../api/answer";
@@ -54,9 +54,9 @@ function* removeAnswerSaga({ payload }: PayloadAction<AnswerRemoveType>) {
 }
 
 const answersSagas = function* () {
-    yield all([takeLatest(createAnswer.type, createAnswerSaga)]);
-    yield all([takeLatest(updateAnswer.type, updateAnswerSaga)]);
-    yield all([takeLatest(removeAnswer.type, removeAnswerSaga)]);
+    yield all([takeEvery(createAnswer.type, createAnswerSaga)]);
+    yield all([takeEvery(updateAnswer.type, updateAnswerSaga)]);
+    yield all([takeEvery(removeAnswer.type, removeAnswerSaga)]);
 };
 
 export default answersSagas;

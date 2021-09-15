@@ -57,8 +57,12 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ testId, defaultValues, onSu
                 )}
                 <Button type="submit">Сохранить</Button>
             </form>
-            {type.value === QuestionTypesEnum.Multiple && defaultValues && (
-                <MultipleAnswerForm testId={testId} question={defaultValues} />
+            {type.value !== QuestionTypesEnum.Number && defaultValues && (
+                <MultipleAnswerForm
+                    testId={testId}
+                    question={defaultValues}
+                    multiple={type.value === QuestionTypesEnum.Multiple}
+                />
             )}
         </div>
     );
