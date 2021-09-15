@@ -86,6 +86,7 @@ const TestPage: React.FC = () => {
             {currentTest && (
                 <div className={styles.container}>
                     <div className={styles.contentWrapper}>
+                        <h2 className={styles.title}>Редактирование теста</h2>
                         <TestForm defaultValues={currentTest} onSubmit={onSubmit} />
                         <div className={styles.questionWrapper}>
                             {currentTest.questions.map((question) => (
@@ -101,6 +102,7 @@ const TestPage: React.FC = () => {
                     </div>
                     <div ref={widgetRef} className={styles.questionWidget}>
                         <QuestionWidget
+                            testId={+id}
                             onReset={() => setCurrentQuestion(undefined)}
                             defaultValues={currentQuestion}
                             onSubmit={onQuestionSubmit}

@@ -5,17 +5,20 @@ import { History } from "history";
 import userReducer from "./user/slice";
 import testsReducer from "./tests/slice";
 import questionsReducer from "./questions/slice";
+import answersReducer from "./answers/slice";
 import userSagas from "./user/sagas";
 import testsSagas from "./tests/sagas";
 import questionsSaga from "./questions/sagas";
+import answersSaga from "./answers/sagas";
 
 export const createRootReducer = (history: History) => ({
     router: connectRouter(history),
     userStore: userReducer,
     testsStore: testsReducer,
     questionsStore: questionsReducer,
+    answersStore: answersReducer,
 });
 
 export const rootSaga = function* () {
-    yield all([userSagas(), testsSagas(), questionsSaga()]);
+    yield all([userSagas(), testsSagas(), questionsSaga(), answersSaga()]);
 };

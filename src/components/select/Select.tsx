@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./select.module.scss";
 import clsx from "clsx";
 import ArrowIcon from "../icons/ArrowIcon";
@@ -9,7 +9,7 @@ export type TSelectItem = {
     value: any;
 };
 
-type SelectProps = {
+export type SelectProps = {
     items: TSelectItem[];
     onSelect?: (item: TSelectItem) => void;
     defaultItem?: TSelectItem;
@@ -29,14 +29,11 @@ const Select: React.FC<SelectProps> = ({ items, onSelect, className, defaultItem
     const [selected, setSelected] = useState<TSelectItem | undefined>(defaultItem);
     const ref = useRef<HTMLDivElement>(null);
 
-    const onItemClick = useCallback(
-        (item: TSelectItem) => {
-            setSelected(item);
-            onSelect && onSelect(item);
-            setFocused(false);
-        },
-        [onSelect, setSelected, setFocused]
-    );
+    const onItemClick = (item: TSelectItem) => {
+        setSelected(item);
+        onSelect && onSelect(item);
+        setFocused(false);
+    };
 
     const outsideClick = () => {
         setFocused(false);
@@ -44,7 +41,8 @@ const Select: React.FC<SelectProps> = ({ items, onSelect, className, defaultItem
 
     useEffect(() => {
         defaultItem && onItemClick(defaultItem);
-    }, [defaultItem, onItemClick]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [defaultItem]);
 
     // @ts-ignore
     useOutsideClick(ref, outsideClick);

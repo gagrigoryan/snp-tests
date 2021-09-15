@@ -7,10 +7,11 @@ export type ActionPopupProps = PopupBaseProps & {
     onSuccess?: () => void;
 };
 
-const ActionPopup: React.FC<ActionPopupProps> = ({ title, onSuccess, onClose }) => {
+const ActionPopup: React.FC<ActionPopupProps> = ({ title, onSuccess, onClose, children }) => {
     return (
         <PopupBase title={title} onClose={onClose}>
             <div className={styles.container}>
+                <div className={styles.content}>{children}</div>
                 <div className={styles.actionWrapper}>
                     <Button onClick={onClose} className={styles.actionButton} outlined>
                         Отмена

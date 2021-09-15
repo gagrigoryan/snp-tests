@@ -4,6 +4,9 @@ import { SortQueryEnum } from "../../types/sort";
 import { createQuestionSuccess, removeQuestionSuccess, updateQuestionSuccess } from "../questions/slice";
 import { QuestionCreateType, QuestionRemoveType, QuestionUpdateType } from "../../types/question";
 import { addTestQuestion, removeTestQuestion, updateTestQuestion } from "../../utils/testQuestion";
+import { createAnswerSuccess, removeAnswerSuccess, updateAnswerSuccess } from "../answers/slice";
+import { AnswerCreateType, AnswerRemoveType, AnswerUpdateType } from "../../types/answer";
+import { addTestAnswer, removeTestAnswer, updateTestAnswer } from "../../utils/testAnswer";
 
 interface TestsStore {
     tests: TTest[];
@@ -83,6 +86,15 @@ const testsSlice = createSlice({
         },
         [updateQuestionSuccess.type]: (state: TestsStore, { payload }: PayloadAction<QuestionUpdateType>) => {
             state.tests = updateTestQuestion(state.tests, payload.testId, payload.question);
+        },
+        [createAnswerSuccess.type]: (state: TestsStore, { payload }: PayloadAction<AnswerCreateType>) => {
+            state.tests = addTestAnswer(state.tests, payload.testId, payload.questionId, payload.answer);
+        },
+        [removeAnswerSuccess.type]: (state: TestsStore, { payload }: PayloadAction<AnswerRemoveType>) => {
+            state.tests = removeTestAnswer(state.tests, payload.testId, payload.questionId, payload.id);
+        },
+        [updateAnswerSuccess.type]: (state: TestsStore, { payload }: PayloadAction<AnswerUpdateType>) => {
+            state.tests = updateTestAnswer(state.tests, payload.testId, payload.questionId, payload.answer);
         },
     },
 });

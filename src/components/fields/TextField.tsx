@@ -23,7 +23,18 @@ const TextField: React.FC<ControlledFieldProps & InputProps> = ({
         shouldUnregister: shouldUnregister || true,
     });
 
-    return <Input {...props} {...inputProps} error={error?.message} ref={ref} />;
+    return (
+        <Input
+            {...props}
+            {...inputProps}
+            onChange={(e) => {
+                inputProps.onChange(e);
+                props.onChange && props.onChange(e);
+            }}
+            error={error?.message}
+            ref={ref}
+        />
+    );
 };
 
 export default TextField;

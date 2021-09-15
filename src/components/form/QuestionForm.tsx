@@ -4,50 +4,23 @@ import { useForm } from "react-hook-form";
 import TextField from "../fields/TextField";
 import Button from "../button/Button";
 import { QuestionTypesEnum, TQuestion } from "../../types/question";
-import Select from "../select/Select";
-import { getQuestionTypeAsText } from "../../utils/getQuestionTypeAsText";
+import NumberFormField from "../fields/NumberFormField";
+import SelectField, { getItemByValue, QuestionSelectItem, SELECT_FIELD_ITEMS } from "../fields/SelectField";
+import MultipleAnswerForm from "./MultipleAnswerForm";
 
 export type QuestionFormProps = {
+    testId: number;
     onSubmit: (data: TQuestion) => void;
     defaultValues?: TQuestion;
 };
 
-export type QuestionSelectItem = {
-    label: string;
-    value: QuestionTypesEnum;
-};
-
-const items: QuestionSelectItem[] = [
-    {
-        label: getQuestionTypeAsText(QuestionTypesEnum.Single),
-        value: QuestionTypesEnum.Single,
-    },
-    {
-        label: getQuestionTypeAsText(QuestionTypesEnum.Multiple),
-        value: QuestionTypesEnum.Multiple,
-    },
-    {
-        label: getQuestionTypeAsText(QuestionTypesEnum.Number),
-        value: QuestionTypesEnum.Number,
-    },
-];
-
-const getItemByValue = (value: QuestionTypesEnum) => {
-    switch (value) {
-        case QuestionTypesEnum.Single:
-            return items[0];
-        case QuestionTypesEnum.Multiple:
-            return items[1];
-        case QuestionTypesEnum.Number:
-            return items[2];
-    }
-};
-
-const QuestionForm: React.FC<QuestionFormProps> = ({ defaultValues, onSubmit }) => {
+const QuestionForm: React.FC<QuestionFormProps> = ({ testId, defaultValues, onSubmit }) => {
     const { control, handleSubmit, setValue } = useForm({
         mode: "onTouched",
     });
-    const [type, setType] = useState<QuestionSelectItem>(items[0]);
+    const [type, setType] = useState<QuestionSelectItem>(
+        defaultValues ? getItemByValue(defaultValues.question_type) : SELECT_FIELD_ITEMS[0]
+    );
 
     const submitHandler = (data: any) => {
         onSubmit({
@@ -58,6 +31,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ defaultValues, onSubmit }) 
 
     useEffect(() => {
         setValue("title", defaultValues?.title);
+        setValue("answer", defaultValues?.answer);
     }, [defaultValues, setValue]);
 
     return (
@@ -73,14 +47,23 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ defaultValues, onSubmit }) 
                         required: { value: true, message: "Введите название вопроса" },
                     }}
                 />
-                <Select
+                <SelectField
                     className={styles.selectField}
-                    defaultItem={defaultValues ? getItemByValue(defaultValues.question_type) : items[0]}
-                    onSelect={(type) => setType(type)}
-                    items={items}
+                    defaultItem={defaultValues && getItemByValue(defaultValues.question_type)}
+                    onSelect={(selectedType) => setType(selectedType)}
                 />
+                {type.value === QuestionTypesEnum.Number && (
+                    <NumberFormField className={styles.field} control={control} name="answer" />
+                )}
                 <Button type="submit">Сохранить</Button>
             </form>
+            {type.value !== QuestionTypesEnum.Number && defaultValues && (
+                <MultipleAnswerForm
+                    testId={testId}
+                    question={defaultValues}
+                    multiple={type.value === QuestionTypesEnum.Multiple}
+                />
+            )}
         </div>
     );
 };

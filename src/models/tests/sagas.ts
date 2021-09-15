@@ -52,6 +52,7 @@ function* createTestSaga({ payload }: PayloadAction<TestRequest>) {
             type: createTestSuccess.type,
             payload: test,
         });
+        yield put(push(`/test/${test.id}`));
     } catch (error) {
         console.error(error);
     }

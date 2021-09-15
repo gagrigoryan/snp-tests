@@ -18,3 +18,20 @@
     composes: field;
     width: get-rem(300px) !important;
 }
+
+.answerForm {
+    margin: get-rem(40px) 0;
+}
+
+.link {
+    composes: link from "../../styles/link.module.scss";
+    margin-bottom: get-rem(30px);
+    display: table;
+}
+
+.answerItem {
+    display: flex;
+    align-items: center;
+    gap: get-rem(10px);
+    composes: field;
+}
