@@ -2,8 +2,14 @@ import React, { useEffect, useState } from "react";
 import styles from "./homePage.module.scss";
 import PageLayout from "../components/page-layout/PageLayout";
 import { useDispatch, useSelector } from "react-redux";
-import { changeSort, createTest, getTests } from "../models/tests/slice";
-import { testsFetchedSelector, testsSelector, testsSortSelector } from "../models/tests/selectors";
+import { changeSort, createTest, getTests, setPage } from "../models/tests/slice";
+import {
+    testsFetchedSelector,
+    testsMetaSelector,
+    testsPageSelector,
+    testsSelector,
+    testsSortSelector,
+} from "../models/tests/selectors";
 import TestCard from "../components/test-card/TestCard";
 import { isAdminSelector } from "../models/user/selectors";
 import Button from "../components/button/Button";
@@ -11,6 +17,7 @@ import { SortQueryEnum } from "../types/sort";
 import ArrowIcon from "../components/icons/ArrowIcon";
 import TestPopup from "../components/popup/TestPopup";
 import { TestRequest } from "../types/test";
+import Pagination from "../components/pagination/Pagination";
 
 const HomePage: React.FC = () => {
     const dispatch = useDispatch();
@@ -18,6 +25,8 @@ const HomePage: React.FC = () => {
     const isAdmin = useSelector(isAdminSelector);
     const sort = useSelector(testsSortSelector);
     const isFetched = useSelector(testsFetchedSelector);
+    const meta = useSelector(testsMetaSelector);
+    const currentPage = useSelector(testsPageSelector);
     const [testPopup, setTestPopup] = useState<boolean>(false);
 
     useEffect(() => {
@@ -26,14 +35,34 @@ const HomePage: React.FC = () => {
 
     const onSortClick = () => {
         if (sort === SortQueryEnum.CreatedAtAsc) {
-            dispatch(changeSort(SortQueryEnum.CreatedAtDesc));
+            dispatch(
+                changeSort({
+                    sort: SortQueryEnum.CreatedAtDesc,
+                    page: currentPage,
+                })
+            );
         } else {
-            dispatch(changeSort(SortQueryEnum.CreatedAtAsc));
+            dispatch(
+                changeSort({
+                    sort: SortQueryEnum.CreatedAtAsc,
+                    page: currentPage,
+                })
+            );
         }
     };
 
     const onTestSubmit = (data: TestRequest) => {
         dispatch(createTest(data));
+        setTestPopup(false);
+    };
+
+    const onPageChange = (page: number) => {
+        dispatch(
+            setPage({
+                page,
+                sort,
+            })
+        );
     };
 
     return (
@@ -53,6 +82,15 @@ const HomePage: React.FC = () => {
                             <TestCard key={test.id} editable={isAdmin} {...test} />
                         ))}
                     </div>
+                    {meta && (
+                        <div className={styles.pagination}>
+                            <Pagination
+                                totalPages={meta.total_pages}
+                                currentPage={currentPage}
+                                onPageChange={onPageChange}
+                            />
+                        </div>
+                    )}
                 </div>
             </PageLayout>
             {testPopup && <TestPopup onClose={() => setTestPopup(false)} onSubmit={onTestSubmit} />}

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TestRequest, TTest } from "../../types/test";
+import { TestQueryOptions, TestRequest, TestResponse, TTest } from "../../types/test";
 import { SortQueryEnum } from "../../types/sort";
 import { createQuestionSuccess, removeQuestionSuccess, updateQuestionSuccess } from "../questions/slice";
 import { QuestionCreateType, QuestionRemoveType, QuestionUpdateType } from "../../types/question";
@@ -7,12 +7,17 @@ import { addTestQuestion, removeTestQuestion, updateTestQuestion } from "../../u
 import { createAnswerSuccess, removeAnswerSuccess, updateAnswerSuccess } from "../answers/slice";
 import { AnswerCreateType, AnswerRemoveType, AnswerUpdateType } from "../../types/answer";
 import { addTestAnswer, removeTestAnswer, updateTestAnswer } from "../../utils/testAnswer";
+import { TMeta } from "../../types/meta";
+import { addTestBasedOnSort } from "../../utils/addTestBasedOnSort";
+import { TESTS_PER_COUNT } from "../../api/test";
 
 interface TestsStore {
     tests: TTest[];
     fetching: boolean;
     testsFetched: boolean;
     failed?: string;
+    meta?: TMeta;
+    page: number;
     sort: SortQueryEnum;
 }
 
@@ -21,6 +26,7 @@ const initialState: TestsStore = {
     fetching: false,
     testsFetched: false,
     sort: SortQueryEnum.CreatedAtDesc,
+    page: 1,
 };
 
 const testsSlice = createSlice({
@@ -31,9 +37,10 @@ const testsSlice = createSlice({
             state.fetching = true;
             state.failed = undefined;
         },
-        getTestsSuccess: (state, { payload }: PayloadAction<TTest[]>) => {
+        getTestsSuccess: (state, { payload }: PayloadAction<TestResponse>) => {
             state.fetching = false;
-            state.tests = payload;
+            state.tests = payload.tests;
+            state.meta = payload.meta;
             state.testsFetched = true;
         },
         getTestsFailed: (state, { payload }: PayloadAction<string>) => {
@@ -52,8 +59,18 @@ const testsSlice = createSlice({
             state.failed = undefined;
         },
         createTestSuccess: (state, { payload }: PayloadAction<TTest>) => {
+            const { tests, totalPages, totalCount } = addTestBasedOnSort(
+                state.tests,
+                payload,
+                state.sort,
+                state.page,
+                state.meta!.total_pages,
+                state.meta!.total_count,
+                TESTS_PER_COUNT
+            );
             state.fetching = false;
-            state.tests = [...state.tests, payload];
+            state.tests = tests;
+            state.meta = { total_pages: totalPages, total_count: totalCount };
         },
         createTestFailed: (state, { payload }: PayloadAction<string>) => {
             state.fetching = false;
@@ -73,8 +90,11 @@ const testsSlice = createSlice({
             state.fetching = false;
             state.tests = state.tests.map((test) => (test.id === payload.id ? payload : test));
         },
-        changeSort: (state, { payload }: PayloadAction<SortQueryEnum>) => {
-            state.sort = payload;
+        changeSort: (state, { payload }: PayloadAction<TestQueryOptions>) => {
+            state.sort = payload.sort ? payload.sort : state.sort;
+        },
+        setPage: (state, { payload }: PayloadAction<TestQueryOptions>) => {
+            state.page = payload.page ? payload.page : state.page;
         },
     },
     extraReducers: {
@@ -103,6 +123,7 @@ export const {
     getTests,
     getTestsSuccess,
     getTestsFailed,
+    setPage,
     getCurrentTest,
     getCurrentTestSuccess,
     createTest,

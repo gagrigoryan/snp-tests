@@ -1,4 +1,4 @@
-import { TestRequest, TTest } from "../../types/test";
+import { TestQueryOptions, TestRequest, TTest } from "../../types/test";
 import { changeTest, deleteTest, fetchCurrentTest, fetchTests, postTest } from "../../api/test";
 import { takeLatest, all, put, call } from "redux-saga/effects";
 import {
@@ -11,6 +11,7 @@ import {
     getTestsSuccess,
     removeTest,
     removeTestSuccess,
+    setPage,
     updateTest,
     updateTestSuccess,
 } from "./slice";
@@ -18,15 +19,13 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import { SortQueryEnum } from "../../types/sort";
 import { push } from "connected-react-router";
 
-function* getTestsSaga({ payload = SortQueryEnum.CreatedAtDesc }: PayloadAction<SortQueryEnum>) {
+function* getTestsSaga({ payload = { sort: SortQueryEnum.CreatedAtDesc } }: PayloadAction<TestQueryOptions>) {
     try {
         // @ts-ignore
-        const response: any = yield call(fetchTests, {
-            sort: payload,
-        });
+        const response: any = yield call(fetchTests, payload);
         yield put({
             type: getTestsSuccess.type,
-            payload: response.tests,
+            payload: response,
         });
     } catch (error) {
         console.error(error);
@@ -52,7 +51,7 @@ function* createTestSaga({ payload }: PayloadAction<TestRequest>) {
             type: createTestSuccess.type,
             payload: test,
         });
-        yield put(push(`/test/${test.id}`));
+        // yield put(push(`/test/${test.id}`));
     } catch (error) {
         console.error(error);
     }
@@ -87,6 +86,7 @@ const testsSagas = function* () {
     yield all([takeLatest(getTests.type, getTestsSaga)]);
     yield all([takeLatest(getCurrentTest.type, getCurrentTestSaga)]);
     yield all([takeLatest(changeSort.type, getTestsSaga)]);
+    yield all([takeLatest(setPage.type, getTestsSaga)]);
     yield all([takeLatest(createTest.type, createTestSaga)]);
     yield all([takeLatest(removeTest.type, removeTestSaga)]);
     yield all([takeLatest(updateTest.type, updateTestSaga)]);

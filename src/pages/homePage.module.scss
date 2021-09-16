@@ -2,7 +2,6 @@
 
 .container {
     composes: container from "../styles/layout.module.scss";
-    composes: pNumber from "../styles/typography.module.scss";
     padding: get-rem(70px) 0;
 }
 
@@ -35,4 +34,11 @@
     svg {
         transform: rotate(180deg);
     }
+}
+
+.pagination {
+    margin-top: get-rem(50px);
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
