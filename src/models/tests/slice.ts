@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { TestQueryOptions, TestRequest, TestResponse, TTest } from "../../types/test";
+import { TestRequest, TestResponse, TTest } from "../../types/test";
 import { SortQueryEnum } from "../../types/sort";
 import { createQuestionSuccess, removeQuestionSuccess, updateQuestionSuccess } from "../questions/slice";
 import { QuestionCreateType, QuestionRemoveType, QuestionUpdateType } from "../../types/question";
@@ -18,6 +18,7 @@ interface TestsStore {
     failed?: string;
     meta?: TMeta;
     page: number;
+    search: string;
     sort: SortQueryEnum;
 }
 
@@ -27,6 +28,7 @@ const initialState: TestsStore = {
     testsFetched: false,
     sort: SortQueryEnum.CreatedAtDesc,
     page: 1,
+    search: "",
 };
 
 const testsSlice = createSlice({
@@ -90,11 +92,14 @@ const testsSlice = createSlice({
             state.fetching = false;
             state.tests = state.tests.map((test) => (test.id === payload.id ? payload : test));
         },
-        changeSort: (state, { payload }: PayloadAction<TestQueryOptions>) => {
-            state.sort = payload.sort ? payload.sort : state.sort;
+        changeSort: (state, { payload }: PayloadAction<SortQueryEnum>) => {
+            state.sort = payload;
         },
-        setPage: (state, { payload }: PayloadAction<TestQueryOptions>) => {
-            state.page = payload.page ? payload.page : state.page;
+        setPage: (state, { payload }: PayloadAction<number>) => {
+            state.page = payload;
+        },
+        setSearch: (state, { payload }: PayloadAction<string>) => {
+            state.search = payload;
         },
     },
     extraReducers: {
@@ -124,6 +129,7 @@ export const {
     getTestsSuccess,
     getTestsFailed,
     setPage,
+    setSearch,
     getCurrentTest,
     getCurrentTestSuccess,
     createTest,

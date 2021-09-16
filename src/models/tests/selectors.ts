@@ -12,3 +12,5 @@ export const testsFetchedSelector = createSelector(selectSelf, ({ testsFetched }
 export const testsMetaSelector = createSelector(selectSelf, ({ meta }) => meta);
 
 export const testsPageSelector = createSelector(selectSelf, ({ page }) => page);
+
+export const testsSearchSelector = createSelector(selectSelf, ({ search }) => search);

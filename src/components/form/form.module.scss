@@ -35,3 +35,13 @@
     gap: get-rem(10px);
     composes: field;
 }
+
+.searchForm {
+    display: flex;
+    width: get-rem(500px);
+    align-items: center;
+}
+
+.searchField {
+    margin-right: get-rem(30px);
+}

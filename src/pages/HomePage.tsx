@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import styles from "./homePage.module.scss";
 import PageLayout from "../components/page-layout/PageLayout";
 import { useDispatch, useSelector } from "react-redux";
-import { changeSort, createTest, getTests, setPage } from "../models/tests/slice";
+import { changeSort, createTest, getTests, setPage, setSearch } from "../models/tests/slice";
 import {
     testsFetchedSelector,
     testsMetaSelector,
     testsPageSelector,
+    testsSearchSelector,
     testsSelector,
     testsSortSelector,
 } from "../models/tests/selectors";
@@ -18,6 +19,7 @@ import ArrowIcon from "../components/icons/ArrowIcon";
 import TestPopup from "../components/popup/TestPopup";
 import { TestRequest } from "../types/test";
 import Pagination from "../components/pagination/Pagination";
+import SearchField from "../components/fields/SearchField";
 
 const HomePage: React.FC = () => {
     const dispatch = useDispatch();
@@ -27,6 +29,7 @@ const HomePage: React.FC = () => {
     const isFetched = useSelector(testsFetchedSelector);
     const meta = useSelector(testsMetaSelector);
     const currentPage = useSelector(testsPageSelector);
+    const search = useSelector(testsSearchSelector);
     const [testPopup, setTestPopup] = useState<boolean>(false);
 
     useEffect(() => {
@@ -35,19 +38,9 @@ const HomePage: React.FC = () => {
 
     const onSortClick = () => {
         if (sort === SortQueryEnum.CreatedAtAsc) {
-            dispatch(
-                changeSort({
-                    sort: SortQueryEnum.CreatedAtDesc,
-                    page: currentPage,
-                })
-            );
+            dispatch(changeSort(SortQueryEnum.CreatedAtDesc));
         } else {
-            dispatch(
-                changeSort({
-                    sort: SortQueryEnum.CreatedAtAsc,
-                    page: currentPage,
-                })
-            );
+            dispatch(changeSort(SortQueryEnum.CreatedAtAsc));
         }
     };
 
@@ -57,12 +50,15 @@ const HomePage: React.FC = () => {
     };
 
     const onPageChange = (page: number) => {
-        dispatch(
-            setPage({
-                page,
-                sort,
-            })
-        );
+        dispatch(setPage(page));
+    };
+
+    const handleSearch = (value: string) => {
+        value && dispatch(setSearch(value.toLowerCase()));
+    };
+
+    const resetSearch = () => {
+        dispatch(setSearch(""));
     };
 
     return (
@@ -76,6 +72,12 @@ const HomePage: React.FC = () => {
                             className={sort === SortQueryEnum.CreatedAtDesc ? styles.filter : styles.inverseFilter}>
                             По дате <ArrowIcon />
                         </span>
+                        <SearchField onSearchClick={handleSearch} />
+                        {search && (
+                            <Button onClick={resetSearch} outlined className={styles.reset}>
+                                Сбросить
+                            </Button>
+                        )}
                     </div>
                     <div className={styles.testsWrapper}>
                         {tests.map((test) => (

@@ -3,12 +3,13 @@ import { apiRequest } from "./apiRequest";
 
 export const TESTS_PER_COUNT = 6;
 
-const getTestsPath = ({ sort, page }: TestQueryOptions) => {
+const getTestsPath = ({ sort, page, search }: TestQueryOptions) => {
     const sortParameter = sort ? `sort=${sort}` : "";
     const perParameter = `&per=${TESTS_PER_COUNT}`;
     const pageParameter = page ? `&page=${page}` : "";
+    const searchParameter = search ? `&search=${search}` : "";
 
-    return `tests?${sortParameter}${perParameter}${pageParameter}`;
+    return `tests?${sortParameter}${perParameter}${pageParameter}${searchParameter}`;
 };
 
 export const fetchTests = async (params: TestQueryOptions): Promise<TestResponse> =>

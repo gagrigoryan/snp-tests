@@ -15,6 +15,7 @@ export type TestRequest = {
 export type TestQueryOptions = {
     sort?: SortQueryEnum;
     page?: number;
+    search?: string;
 };
 
 export type TestResponse = {
