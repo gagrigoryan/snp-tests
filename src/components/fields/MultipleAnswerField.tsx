@@ -45,13 +45,13 @@ const MultipleAnswerField: React.FC<MultipleAnswerProps> = ({
     return (
         <div className={styles.answerItem}>
             {multiple ? (
-                <Checkbox label="" defaultChecked={checked} onChange={(value: any) => setChecked(value)} />
+                <Checkbox large label="" defaultChecked={checked} onChange={(e) => setChecked(e.target.checked)} />
             ) : (
                 <RadioButton
                     name="answer-field"
                     label=""
                     defaultChecked={checked}
-                    onChange={(value: any) => setChecked(value)}
+                    onChange={(e) => setChecked(e.target.checked)}
                 />
             )}
             <TextField

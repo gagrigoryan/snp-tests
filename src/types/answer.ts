@@ -18,3 +18,7 @@ export type AnswerRemoveType = {
 };
 
 export type AnswerUpdateType = AnswerCreateType;
+
+export type PassingTestAnswersType = {
+    [key in number]: string[] | string;
+};

@@ -16,3 +16,18 @@
         margin-right: get-rem(20px);
     }
 }
+
+.resultWrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: get-rem(30px);
+}
+
+.resultTitle {
+    composes: pNumber from "../../styles/typography.module.scss";
+    font-size: 3rem;
+    letter-spacing: 0.1em;
+    color: $blue;
+}
