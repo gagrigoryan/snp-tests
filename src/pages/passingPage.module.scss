@@ -1,0 +1,20 @@
+@import "../styles/vars.module";
+
+.container {
+    composes: container from "../styles/layout.module.scss";
+    padding: get-rem(100px) 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.form {
+    width: 60%;
+}
+
+.error {
+    composes: pNormal from "../styles/typography.module.scss";
+    composes: mobilePNormal from "../styles/typography.module.scss";
+    color: $redError;
+    margin-bottom: get-rem(30px);
+}

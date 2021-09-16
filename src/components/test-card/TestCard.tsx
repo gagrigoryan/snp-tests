@@ -8,7 +8,7 @@ import { TTest } from "../../types/test";
 import ActionPopup from "../popup/ActionPopup";
 import { useDispatch } from "react-redux";
 import { removeTest } from "../../models/tests/slice";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 type TestCardProps = TTest & {
     editable?: boolean;
@@ -43,7 +43,9 @@ const TestCard: React.FC<TestCardProps> = ({ id, title, editable, className }) =
                             </button>
                         </div>
                     )}
-                    <Button className={styles.button}>Пройти тест</Button>
+                    <Link to={`/passing/${id}`}>
+                        <Button className={styles.button}>Пройти тест</Button>
+                    </Link>
                 </div>
             </div>
             {deletePopup && (

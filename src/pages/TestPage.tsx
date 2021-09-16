@@ -12,14 +12,11 @@ import QuestionCard from "../components/question-card/QuestionCard";
 import QuestionWidget from "../components/question-widget/QuestionWidget";
 import { TQuestion } from "../types/question";
 import { createQuestion, updateQuestion } from "../models/questions/slice";
+import { checkStringIsNumeric } from "../utils/checkStringIsNumeric";
 
 interface ParamsType {
     id: string;
 }
-
-const isNumeric = (value: string): boolean => {
-    return /^\d+$/.test(value);
-};
 
 const TestPage: React.FC = () => {
     const { id } = useParams<ParamsType>();
@@ -31,13 +28,13 @@ const TestPage: React.FC = () => {
     const [currentQuestion, setCurrentQuestion] = useState<TQuestion>();
 
     useEffect(() => {
-        if (isNumeric(id) && !isFetched) {
+        if (checkStringIsNumeric(id) && !isFetched) {
             dispatch(getCurrentTest(+id));
         }
     }, [dispatch, id, isFetched]);
 
     useEffect(() => {
-        if (tests.length > 0 && isNumeric(id)) {
+        if (tests.length > 0 && checkStringIsNumeric(id)) {
             setCurrentTest(getTestById(+id, tests));
         }
     }, [tests, id]);

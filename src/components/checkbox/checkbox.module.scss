@@ -5,6 +5,20 @@
     align-items: flex-start;
 }
 
+.largeContainer {
+    composes: container;
+
+    .box {
+        width: get-rem(25px);
+        height: get-rem(25px);
+
+        svg {
+            width: get-rem(16px);
+            height: get-rem(16px);
+        }
+    }
+}
+
 .input {
     display: none;
 }
