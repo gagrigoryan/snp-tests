@@ -13,6 +13,7 @@ import Button from "../components/button/Button";
 import Question from "../components/question/Question";
 import { getResultOfPassingTest } from "../utils/getResultOfPassingTest";
 import TestPassingPopup from "../components/popup/TestPassingPopup";
+import { Link } from "react-router-dom";
 
 interface ParamsType {
     id: string;
@@ -57,19 +58,28 @@ const PassingPage: React.FC = () => {
             <PageLayout title={`Прохождение теста №${currentTest ? currentTest.id : ""}`}>
                 {currentTest && (
                     <div className={styles.container}>
-                        <form className={styles.form} onSubmit={handleSubmit(onSubmit, onError)}>
-                            {currentTest.questions.map((question) => (
-                                <Question
-                                    question={question}
-                                    name={`${question.id}`}
-                                    control={control}
-                                    // @ts-ignore
-                                    register={register}
-                                />
-                            ))}
-                            {error && <p className={styles.error}>Ответьте на все вопросы</p>}
-                            <Button type="submit">Сохранить</Button>
-                        </form>
+                        {currentTest.questions.length === 0 ? (
+                            <div className={styles.emptyContainer}>
+                                <h3 className={styles.emptyTitle}>В тесте отсутствуют вопросы :(</h3>
+                                <Link to="/">
+                                    <Button outlined>На главную</Button>
+                                </Link>
+                            </div>
+                        ) : (
+                            <form className={styles.form} onSubmit={handleSubmit(onSubmit, onError)}>
+                                {currentTest.questions.map((question) => (
+                                    <Question
+                                        question={question}
+                                        name={`${question.id}`}
+                                        control={control}
+                                        // @ts-ignore
+                                        register={register}
+                                    />
+                                ))}
+                                {error && <p className={styles.error}>Ответьте на все вопросы</p>}
+                                <Button type="submit">Сохранить</Button>
+                            </form>
+                        )}
                     </div>
                 )}
             </PageLayout>

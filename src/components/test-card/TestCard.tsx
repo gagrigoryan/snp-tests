@@ -8,7 +8,7 @@ import { TTest } from "../../types/test";
 import ActionPopup from "../popup/ActionPopup";
 import { useDispatch } from "react-redux";
 import { removeTest } from "../../models/tests/slice";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 type TestCardProps = TTest & {
     editable?: boolean;
@@ -17,6 +17,7 @@ type TestCardProps = TTest & {
 
 const TestCard: React.FC<TestCardProps> = ({ id, title, editable, className }) => {
     const [deletePopup, setDeletePopup] = useState<boolean>(false);
+    const [passingPopup, setPassingPopup] = useState<boolean>(false);
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -26,6 +27,10 @@ const TestCard: React.FC<TestCardProps> = ({ id, title, editable, className }) =
 
     const onEditClick = () => {
         history.push(`/test/${id}`);
+    };
+
+    const onPassingClick = () => {
+        history.push(`/passing/${id}`);
     };
 
     return (
@@ -43,9 +48,9 @@ const TestCard: React.FC<TestCardProps> = ({ id, title, editable, className }) =
                             </button>
                         </div>
                     )}
-                    <Link to={`/passing/${id}`}>
-                        <Button className={styles.button}>Пройти тест</Button>
-                    </Link>
+                    <Button onClick={() => setPassingPopup(true)} className={styles.button}>
+                        Пройти тест
+                    </Button>
                 </div>
             </div>
             {deletePopup && (
@@ -53,6 +58,13 @@ const TestCard: React.FC<TestCardProps> = ({ id, title, editable, className }) =
                     title={`Вы хотите удалить тест №${id}`}
                     onClose={() => setDeletePopup(false)}
                     onSuccess={onDeleteClick}
+                />
+            )}
+            {passingPopup && (
+                <ActionPopup
+                    title={`Пройти тест №${id}`}
+                    onSuccess={onPassingClick}
+                    onClose={() => setPassingPopup(false)}
                 />
             )}
         </>

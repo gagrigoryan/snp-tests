@@ -6,11 +6,12 @@ import SearchIcon from "../icons/SearchIcon";
 
 type SearchFieldProps = {
     onSearchClick: (value: string) => void;
+    defaultValue?: string;
     className?: string;
 };
 
-const SearchField: React.FC<SearchFieldProps> = ({ onSearchClick, className }) => {
-    const [value, setValue] = useState<string>("");
+const SearchField: React.FC<SearchFieldProps> = ({ onSearchClick, defaultValue, className }) => {
+    const [value, setValue] = useState<string>(defaultValue ? defaultValue : "");
 
     useEffect(() => {
         const onKeyDown: React.KeyboardEventHandler = (e) => {

@@ -5,9 +5,9 @@ import { TAnswer } from "../../types/answer";
 import Button from "../button/Button";
 import { useDispatch } from "react-redux";
 import { TQuestion } from "../../types/question";
-import { createAnswer, removeAnswer, updateAnswer } from "../../models/answers/slice";
-import MultipleAnswerField from "../fields/MultipleAnswerField";
+import { changeAnswerPosition, createAnswer, removeAnswer, updateAnswer } from "../../models/answers/slice";
 import { prepareAnswerDataOnChange } from "../../utils/prepareAnswerDataOnChange";
+import DraggableAnswers from "../draggable-answers/DraggableAnswers";
 
 type MultipleAnswerFormProps = {
     testId: number;
@@ -86,6 +86,10 @@ const MultipleAnswerForm: React.FC<MultipleAnswerFormProps> = ({ testId, questio
         });
     };
 
+    const onPositionChange = (id: number, startPosition: number, endPosition: number) => {
+        dispatch(changeAnswerPosition({ id, testId, questionId: question.id, startPosition, endPosition }));
+    };
+
     useEffect(() => {
         setAnswers(getCorrectAnswers(question.answers));
     }, [question]);
@@ -96,18 +100,14 @@ const MultipleAnswerForm: React.FC<MultipleAnswerFormProps> = ({ testId, questio
                 <span onClick={handleCreate} className={styles.link}>
                     Добавить
                 </span>
-                <div className={styles.answersWrapper}>
-                    {answers.map((item) => (
-                        <MultipleAnswerField
-                            key={`${item.id}`}
-                            {...item}
-                            onAnswerChange={onAnswerChange}
-                            onDelete={handleDelete}
-                            control={control}
-                            multiple={multiple}
-                        />
-                    ))}
-                </div>
+                <DraggableAnswers
+                    answers={answers}
+                    control={control}
+                    multiple={multiple}
+                    onAnswerChange={onAnswerChange}
+                    onPositionChange={onPositionChange}
+                    onDelete={handleDelete}
+                />
                 <Button outlined className={styles.button} type="submit">
                     Сохранить ответы
                 </Button>

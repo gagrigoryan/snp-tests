@@ -8,6 +8,17 @@
     justify-content: center;
 }
 
+.emptyContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.emptyTitle {
+    composes: pNumber from "../styles/typography.module.scss";
+    margin-bottom: get-rem(20px);
+}
+
 .form {
     width: 60%;
 }

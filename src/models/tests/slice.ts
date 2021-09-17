@@ -4,12 +4,18 @@ import { SortQueryEnum } from "../../types/sort";
 import { createQuestionSuccess, removeQuestionSuccess, updateQuestionSuccess } from "../questions/slice";
 import { QuestionCreateType, QuestionRemoveType, QuestionUpdateType } from "../../types/question";
 import { addTestQuestion, removeTestQuestion, updateTestQuestion } from "../../utils/testQuestion";
-import { createAnswerSuccess, removeAnswerSuccess, updateAnswerSuccess } from "../answers/slice";
-import { AnswerCreateType, AnswerRemoveType, AnswerUpdateType } from "../../types/answer";
+import {
+    changeAnswerPositionSuccess,
+    createAnswerSuccess,
+    removeAnswerSuccess,
+    updateAnswerSuccess,
+} from "../answers/slice";
+import { AnswerChangePositionType, AnswerCreateType, AnswerRemoveType, AnswerUpdateType } from "../../types/answer";
 import { addTestAnswer, removeTestAnswer, updateTestAnswer } from "../../utils/testAnswer";
 import { TMeta } from "../../types/meta";
 import { addTestBasedOnSort } from "../../utils/addTestBasedOnSort";
 import { TESTS_PER_COUNT } from "../../api/test";
+import { reorderTestAnswers } from "../../utils/reorderList";
 
 interface TestsStore {
     tests: TTest[];
@@ -120,6 +126,13 @@ const testsSlice = createSlice({
         },
         [updateAnswerSuccess.type]: (state: TestsStore, { payload }: PayloadAction<AnswerUpdateType>) => {
             state.tests = updateTestAnswer(state.tests, payload.testId, payload.questionId, payload.answer);
+        },
+        [changeAnswerPositionSuccess.type]: (
+            state: TestsStore,
+            { payload }: PayloadAction<AnswerChangePositionType>
+        ) => {
+            const { testId, questionId, startPosition, endPosition } = payload;
+            state.tests = reorderTestAnswers(state.tests, testId, questionId, startPosition, endPosition);
         },
     },
 });

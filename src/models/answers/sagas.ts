@@ -1,8 +1,16 @@
 import { all, call, put, takeEvery } from "redux-saga/effects";
 import { PayloadAction } from "@reduxjs/toolkit";
-import { AnswerCreateType, AnswerRemoveType, AnswerUpdateType, TAnswer } from "../../types/answer";
-import { changeAnswer, deleteAnswer, postAnswer } from "../../api/answer";
 import {
+    AnswerCreateType,
+    AnswerRemoveType,
+    AnswerChangePositionType,
+    AnswerUpdateType,
+    TAnswer,
+} from "../../types/answer";
+import { changeAnswer, deleteAnswer, insertAnswer, postAnswer } from "../../api/answer";
+import {
+    changeAnswerPosition,
+    changeAnswerPositionSuccess,
     createAnswer,
     createAnswerSuccess,
     removeAnswer,
@@ -53,10 +61,23 @@ function* removeAnswerSaga({ payload }: PayloadAction<AnswerRemoveType>) {
     }
 }
 
+function* changeAnswerPositionSaga({ payload }: PayloadAction<AnswerChangePositionType>) {
+    try {
+        yield call(insertAnswer, payload.id, payload.endPosition);
+        yield put({
+            type: changeAnswerPositionSuccess.type,
+            payload,
+        });
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 const answersSagas = function* () {
     yield all([takeEvery(createAnswer.type, createAnswerSaga)]);
     yield all([takeEvery(updateAnswer.type, updateAnswerSaga)]);
     yield all([takeEvery(removeAnswer.type, removeAnswerSaga)]);
+    yield all([takeEvery(changeAnswerPosition.type, changeAnswerPositionSaga)]);
 };
 
 export default answersSagas;

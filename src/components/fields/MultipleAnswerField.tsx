@@ -5,8 +5,9 @@ import TextField from "./TextField";
 import { TAnswer } from "../../types/answer";
 import { Control } from "react-hook-form";
 import RadioButton from "../radio-button/RadioButton";
+import ActionPopup from "../popup/ActionPopup";
 
-type MultipleAnswerProps = TAnswer & {
+export type MultipleAnswerProps = TAnswer & {
     onAnswerChange: (data: TAnswer) => void;
     onDelete: (id: TAnswer) => void;
     control: Control;
@@ -24,6 +25,7 @@ const MultipleAnswerField: React.FC<MultipleAnswerProps> = ({
 }) => {
     const [checked, setChecked] = useState<boolean>(is_right);
     const [value, setValue] = useState<string>(text);
+    const [deletePopup, setDeletePopup] = useState<boolean>(false);
 
     useEffect(() => {
         onAnswerChange({
@@ -34,7 +36,7 @@ const MultipleAnswerField: React.FC<MultipleAnswerProps> = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [checked, value]);
 
-    const onDeleteClick = () => {
+    const handleDelete = () => {
         onDelete({
             ...props,
             text: value,
@@ -42,32 +44,45 @@ const MultipleAnswerField: React.FC<MultipleAnswerProps> = ({
         });
     };
 
+    const onDeleteClick = () => {
+        props.isCreated ? handleDelete() : setDeletePopup(true);
+    };
+
     return (
-        <div className={styles.answerItem}>
-            {multiple ? (
-                <Checkbox large label="" defaultChecked={checked} onChange={(e) => setChecked(e.target.checked)} />
-            ) : (
-                <RadioButton
-                    name="answer-field"
-                    label=""
-                    defaultChecked={checked}
-                    onChange={(e) => setChecked(e.target.checked)}
+        <>
+            <div className={styles.answerItem}>
+                {multiple ? (
+                    <Checkbox large label="" defaultChecked={checked} onChange={(e) => setChecked(e.target.checked)} />
+                ) : (
+                    <RadioButton
+                        name="answer-field"
+                        label=""
+                        defaultChecked={checked}
+                        onChange={(e) => setChecked(e.target.checked)}
+                    />
+                )}
+                <TextField
+                    control={control}
+                    name={`text-${props.id}`}
+                    placeholder="Введите текст ответа"
+                    defaultValue={value}
+                    onChange={(e: any) => setValue(e.target.value)}
+                    rules={{
+                        required: { value: true, message: "Введите текст ответа" },
+                    }}
+                />
+                <span onClick={onDeleteClick} className={styles.link}>
+                    Удалить
+                </span>
+            </div>
+            {deletePopup && (
+                <ActionPopup
+                    title={`Удалить ответ №${props.id}`}
+                    onSuccess={handleDelete}
+                    onClose={() => setDeletePopup(false)}
                 />
             )}
-            <TextField
-                control={control}
-                name={`text-${props.id}`}
-                placeholder="Введите текст ответа"
-                defaultValue={value}
-                onChange={(e: any) => setValue(e.target.value)}
-                rules={{
-                    required: { value: true, message: "Введите текст ответа" },
-                }}
-            />
-            <span onClick={onDeleteClick} className={styles.link}>
-                Удалить
-            </span>
-        </div>
+        </>
     );
 };
 
