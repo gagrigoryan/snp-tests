@@ -1,17 +1,18 @@
-import { TestRequest, TTest } from "../types/test";
+import { TestQueryOptions, TestRequest, TestResponse, TTest } from "../types/test";
 import { apiRequest } from "./apiRequest";
-import { SortQueryEnum } from "../types/sort";
 
-type TestQueryOptions = {
-    sort?: SortQueryEnum;
-};
+export const TESTS_PER_COUNT = 6;
 
-const getTestsPath = ({ sort }: TestQueryOptions) => {
+const getTestsPath = ({ sort, page, search }: TestQueryOptions) => {
     const sortParameter = sort ? `sort=${sort}` : "";
-    return `tests?${sortParameter}`;
+    const perParameter = `&per=${TESTS_PER_COUNT}`;
+    const pageParameter = page ? `&page=${page}` : "";
+    const searchParameter = search ? `&search=${search}` : "";
+
+    return `tests?${sortParameter}${perParameter}${pageParameter}${searchParameter}`;
 };
 
-export const fetchTests = async (params: TestQueryOptions) =>
+export const fetchTests = async (params: TestQueryOptions): Promise<TestResponse> =>
     apiRequest({
         path: getTestsPath(params),
         method: "GET",

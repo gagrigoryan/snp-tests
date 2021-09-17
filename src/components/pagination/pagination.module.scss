@@ -1,0 +1,35 @@
+@import "../../styles/vars.module";
+
+.container {
+}
+
+.button {
+    composes: pNormal from "../../styles/typography.module.scss";
+    width: get-rem(32px);
+    height: get-rem(32px);
+    background: none;
+    outline: none;
+    border-radius: 50%;
+    border: 1px solid $gray;
+    color: $gray;
+    cursor: pointer;
+
+    &:not(:last-child) {
+        margin-right: get-rem(10px);
+    }
+
+    &:hover {
+        color: $blueHover;
+        border-color: $blueHover;
+    }
+}
+
+.activeButton {
+    background-color: $blue;
+    border-color: $blue;
+    color: $white;
+    &:hover {
+        color: $white;
+        border-color: $blue;
+    }
+}

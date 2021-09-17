@@ -1,0 +1,23 @@
+@import "../../styles/vars.module";
+
+.container {
+    width: get-rem(370px);
+    position: relative;
+}
+
+.icon {
+    position: absolute;
+    right: get-rem(20px);
+    top: 50%;
+    transform: translateY(-40%);
+    outline: none;
+    border: none;
+    background: none;
+    cursor: pointer;
+
+    &:hover {
+        svg path {
+            fill: $blueHover;
+        }
+    }
+}
