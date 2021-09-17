@@ -20,3 +20,9 @@ export const changeAnswer = async (id: number, body: TAnswer): Promise<TAnswer> 
         method: "PATCH",
         body,
     });
+
+export const insertAnswer = async (id: number, position: number) =>
+    apiRequest({
+        path: `answers/${id}/insert_at/${position}`,
+        method: "PATCH",
+    });

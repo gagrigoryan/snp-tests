@@ -48,7 +48,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ testId, defaultValues, onSu
                     }}
                 />
                 <SelectField
-                    className={styles.selectField}
+                    className={defaultValues ? styles.hiddenSelectField : styles.selectField}
                     defaultItem={defaultValues && getItemByValue(defaultValues.question_type)}
                     onSelect={(selectedType) => setType(selectedType)}
                 />

@@ -72,7 +72,7 @@ const HomePage: React.FC = () => {
                             className={sort === SortQueryEnum.CreatedAtDesc ? styles.filter : styles.inverseFilter}>
                             По дате <ArrowIcon />
                         </span>
-                        <SearchField onSearchClick={handleSearch} />
+                        <SearchField onSearchClick={handleSearch} defaultValue={search} />
                         {search && (
                             <Button onClick={resetSearch} outlined className={styles.reset}>
                                 Сбросить
