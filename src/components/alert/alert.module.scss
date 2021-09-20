@@ -9,6 +9,7 @@
     border-top-left-radius: get-rem(10px);
     max-width: get-rem(180px);
     background-color: $white;
+    z-index: 5;
 }
 
 .successContainer {
@@ -16,12 +17,12 @@
 
     .icon {
         svg path {
-            stroke: $green;
+            stroke: $greenBorder;
         }
     }
 
     .text {
-        color: $green;
+        color: $greenBorder;
     }
 }
 
@@ -30,6 +31,10 @@
 
     .text {
         color: $blue;
+    }
+
+    .icon {
+        animation: 0.5s rotate infinite;
     }
 }
 
@@ -57,4 +62,13 @@
     position: fixed;
     right: 0;
     top: 20%;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }

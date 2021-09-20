@@ -5,7 +5,7 @@ import { TAnswer } from "../../types/answer";
 import Button from "../button/Button";
 import { useDispatch } from "react-redux";
 import { TQuestion } from "../../types/question";
-import { changeAnswerPosition, createAnswer, removeAnswer, updateAnswer } from "../../models/answers/slice";
+import { changeAnswerPosition, createAnswerRequest, removeAnswer, updateAnswer } from "../../models/answers/slice";
 import { prepareAnswerDataOnChange } from "../../utils/prepareAnswerDataOnChange";
 import DraggableAnswers from "../draggable-answers/DraggableAnswers";
 
@@ -82,7 +82,7 @@ const MultipleAnswerForm: React.FC<MultipleAnswerFormProps> = ({ testId, questio
                 questionId: question.id,
                 answer,
             };
-            answer.isCreated ? dispatch(createAnswer(body)) : dispatch(updateAnswer(body));
+            answer.isCreated ? dispatch(createAnswerRequest(body)) : dispatch(updateAnswer(body));
         });
     };
 

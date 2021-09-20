@@ -41,7 +41,7 @@ const testsSlice = createSlice({
     name: "tests",
     initialState,
     reducers: {
-        getTests: (state) => {
+        getTestsRequest: (state) => {
             state.fetching = true;
             state.failed = undefined;
         },
@@ -138,7 +138,7 @@ const testsSlice = createSlice({
 });
 
 export const {
-    getTests,
+    getTestsRequest,
     getTestsSuccess,
     getTestsFailed,
     setPage,

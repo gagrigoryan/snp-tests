@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./homePage.module.scss";
 import PageLayout from "../components/page-layout/PageLayout";
 import { useDispatch, useSelector } from "react-redux";
-import { changeSort, createTest, getTests, setPage, setSearch } from "../models/tests/slice";
+import { changeSort, createTest, getTestsRequest, setPage, setSearch } from "../models/tests/slice";
 import {
     testsFetchedSelector,
     testsMetaSelector,
@@ -33,7 +33,7 @@ const HomePage: React.FC = () => {
     const [testPopup, setTestPopup] = useState<boolean>(false);
 
     useEffect(() => {
-        !isFetched && dispatch(getTests());
+        !isFetched && dispatch(getTestsRequest());
     }, [dispatch, isFetched]);
 
     const onSortClick = () => {

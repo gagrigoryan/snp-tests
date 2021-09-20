@@ -6,6 +6,7 @@ import userReducer from "./user/slice";
 import testsReducer from "./tests/slice";
 import questionsReducer from "./questions/slice";
 import answersReducer from "./answers/slice";
+import alertReducer from "./alert/slice";
 import userSagas from "./user/sagas";
 import testsSagas from "./tests/sagas";
 import questionsSaga from "./questions/sagas";
@@ -17,6 +18,7 @@ export const createRootReducer = (history: History) => ({
     testsStore: testsReducer,
     questionsStore: questionsReducer,
     answersStore: answersReducer,
+    alertStore: alertReducer,
 });
 
 export const rootSaga = function* () {
