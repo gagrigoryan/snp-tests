@@ -3,3 +3,8 @@ export enum AlertTypeEnum {
     Loading = "loading",
     Error = "error",
 }
+
+export type TAlert = {
+    type: AlertTypeEnum;
+    message: string;
+};

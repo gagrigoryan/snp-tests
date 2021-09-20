@@ -34,6 +34,10 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ testId, defaultValues, onSu
         setValue("answer", defaultValues?.answer);
     }, [defaultValues, setValue]);
 
+    useEffect(() => {
+        console.log("DEFAULT", defaultValues);
+    }, [defaultValues]);
+
     return (
         <div className={styles.container}>
             <form onSubmit={handleSubmit(submitHandler)}>

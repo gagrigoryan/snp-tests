@@ -2,13 +2,11 @@ import React from "react";
 import styles from "./alert.module.scss";
 import clsx from "clsx";
 import CheckLightIcon from "../icons/CheckLightIcon";
-import { AlertTypeEnum } from "../../types/alert";
+import { AlertTypeEnum, TAlert } from "../../types/alert";
 import SpinnerIcon from "../icons/SpinnerIcon";
 import ErrorIcon from "../icons/ErrorIcon";
 
-export type AlertProps = {
-    type: AlertTypeEnum;
-    message: string;
+export type AlertProps = TAlert & {
     className?: string;
 };
 

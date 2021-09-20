@@ -10,12 +10,16 @@ import {
 import { changeAnswer, deleteAnswer, insertAnswer, postAnswer } from "../../api/answer";
 import {
     changeAnswerPosition,
+    changeAnswerPositionFailed,
     changeAnswerPositionSuccess,
-    createAnswer,
+    createAnswerRequest,
+    createAnswerFailed,
     createAnswerSuccess,
     removeAnswer,
+    removeAnswerFailed,
     removeAnswerSuccess,
     updateAnswer,
+    updateAnswerFailed,
     updateAnswerSuccess,
 } from "./slice";
 
@@ -31,6 +35,10 @@ function* createAnswerSaga({ payload }: PayloadAction<AnswerCreateType>) {
         });
     } catch (error) {
         console.error(error);
+        yield put({
+            type: createAnswerFailed.type,
+            payload: "Не удалось создать ответ",
+        });
     }
 }
 
@@ -46,6 +54,10 @@ function* updateAnswerSaga({ payload }: PayloadAction<AnswerUpdateType>) {
         });
     } catch (error) {
         console.error(error);
+        yield put({
+            type: updateAnswerFailed.type,
+            payload: "Ответы не обновились",
+        });
     }
 }
 
@@ -58,6 +70,10 @@ function* removeAnswerSaga({ payload }: PayloadAction<AnswerRemoveType>) {
         });
     } catch (error) {
         console.error(error);
+        yield put({
+            type: removeAnswerFailed.type,
+            payload: "Ответ не удален",
+        });
     }
 }
 
@@ -70,11 +86,15 @@ function* changeAnswerPositionSaga({ payload }: PayloadAction<AnswerChangePositi
         });
     } catch (error) {
         console.error(error);
+        yield put({
+            type: changeAnswerPositionFailed.type,
+            payload: "Позиции ответов не удалось изменить",
+        });
     }
 }
 
 const answersSagas = function* () {
-    yield all([takeEvery(createAnswer.type, createAnswerSaga)]);
+    yield all([takeEvery(createAnswerRequest.type, createAnswerSaga)]);
     yield all([takeEvery(updateAnswer.type, updateAnswerSaga)]);
     yield all([takeEvery(removeAnswer.type, removeAnswerSaga)]);
     yield all([takeEvery(changeAnswerPosition.type, changeAnswerPositionSaga)]);

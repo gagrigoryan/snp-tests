@@ -7,7 +7,8 @@ import {
     createTestSuccess,
     getCurrentTest,
     getCurrentTestSuccess,
-    getTests,
+    getTestsRequest,
+    getTestsFailed,
     getTestsSuccess,
     removeTest,
     setPage,
@@ -32,7 +33,10 @@ function* getTestsSaga() {
             payload: response,
         });
     } catch (error) {
-        console.error(error);
+        yield put({
+            type: getTestsFailed.type,
+            payload: "Тесты не загрузились",
+        });
     }
 }
 
@@ -92,7 +96,7 @@ function* updateTestSaga({ payload }: PayloadAction<TTest>) {
 }
 
 const testsSagas = function* () {
-    yield all([takeLatest(getTests.type, getTestsSaga)]);
+    yield all([takeLatest(getTestsRequest.type, getTestsSaga)]);
     yield all([takeLatest(getCurrentTest.type, getCurrentTestSaga)]);
     yield all([takeLatest(changeSort.type, getTestsSaga)]);
     yield all([takeLatest(setPage.type, getTestsSaga)]);
